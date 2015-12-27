@@ -14,18 +14,19 @@ One or both of the LEDs next to FAMS and FA15 test points (beside the Flash ROM
 socket) will light up when one of the reprogrammable banks is enabled. If both
 LEDs are off then the WDC firmware bank is enabled.
 
-Reprogramming the ROM must be done very carefully. If you erase the WDC ROM
-image in bank 3 then your will not be able to use the WDC TIDE tools to
-recover your system.
+The WDC boot ROM is part of W65C265 processor so it can not be erased (but it
+can be disabled). The mask ROM tests for the character sequence 'WDC' at various
+locations in memory and will execute code following the string if found. If you
+are developing a flash ROM image the only add the 'WDC' string when you are sure
+the ROM functions properly (or you will have to remove the flash ROM to erase
+it).
 
 ## UART Connections
 
 The hacking tool uses the ACIA to communicate with your PC and download new
 ROM images. You will need a USB Serial adapter (like one of the cheap PL2303
 modules with jumper wires sold on eBay) to establish a connection. You must
-connect the TXD, RXD and GND lines between the SXB and the USB adapter. In
-addition you must place a jumper wire between RTS and CTS on the ACIA
-connector.
+connect the TXD, RXD and GND lines between the SXB and the USB adapter.
 
 You also need a terminal program like AlphaCom or Tera Term on your PC that
 supports XMODEM file transfers. Configure it to work at 19200 baud, 8 data
@@ -86,5 +87,4 @@ backspace or pressing ENTER.
 The 'B' command sets the memory bank (e.g. bits 23 to 16 of the address bus)
 when displaying or altering memory. I've added this command to support a
 hardware project I'm working on to add additional RAM via the XBUS connector.
-On a standard SXB board you can only access bank 00. Attempting to accessing
-other banks will crash your SXB.
+On a standard SXB board you can only access bank 00.
