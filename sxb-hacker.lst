@@ -1,4 +1,4 @@
-  Thu Jan 21 2016 21:36                                                                                                    Page 1
+  Thu Jan 21 2016 23:58                                                                                                    Page 1
 
 
                                                ***************************************
@@ -59,7 +59,7 @@
     17                        ; http://creativecommons.org/licenses/by-nc-sa/4.0/
     18                        ;
     19                        ;===============================================================================
-  Thu Jan 21 2016 21:36                                                                                                    Page 2
+  Thu Jan 21 2016 23:58                                                                                                    Page 2
 
 
     20                        ; Notes:
@@ -120,7 +120,7 @@
     75             0000DF56   T3LL            equ     $00DF56         ; Timer 3 Latch Low
     76             0000DF57   T3LH            equ     $00DF57         ; Timer 3 Latch High
     77             0000DF58   T4LL            equ     $00DF58         ; Timer 4 Latch Low
-  Thu Jan 21 2016 21:36                                                                                                    Page 3
+  Thu Jan 21 2016 23:58                                                                                                    Page 3
 
 
     78             0000DF59   T4LH            equ     $00DF59         ; Timer 4 Latch High
@@ -181,7 +181,7 @@
     10                        ; Copyright (C)2015 HandCoded Software Ltd.
     11                        ; All rights reserved.
     12                        ;
-  Thu Jan 21 2016 21:36                                                                                                    Page 4
+  Thu Jan 21 2016 23:58                                                                                                    Page 4
 
 
     13                        ; This work is made available under the terms of the Creative Commons
@@ -242,7 +242,7 @@
     68                        long_a          macro
     69                                        rep     #M_FLAG
     70                                        longa   on
-  Thu Jan 21 2016 21:36                                                                                                    Page 5
+  Thu Jan 21 2016 23:58                                                                                                    Page 5
 
 
     71                                        endm
@@ -303,7 +303,7 @@
     49             00000001   SOH             equ     $01
     50             00000004   EOT             equ     $04
     51             00000006   ACK             equ     $06
-  Thu Jan 21 2016 21:36                                                                                                    Page 6
+  Thu Jan 21 2016 23:58                                                                                                    Page 6
 
 
     52             00000007   BEL             equ     $07
@@ -364,7 +364,7 @@
    107             00000056   OP_PEI          equ     43<<1
    108             00000058   OP_PER          equ     44<<1
    109             0000005A   OP_PHA          equ     45<<1
-  Thu Jan 21 2016 21:36                                                                                                    Page 7
+  Thu Jan 21 2016 23:58                                                                                                    Page 7
 
 
    110             0000005C   OP_PHB          equ     46<<1
@@ -425,7 +425,7 @@
    165             00000010   MD_DPG          equ     8<<1                    ; d
    166             00000012   MD_STK          equ     9<<1                    ; d,s
    167             00000014   MD_DPX          equ     10<<1                   ; d,x
-  Thu Jan 21 2016 21:36                                                                                                    Page 8
+  Thu Jan 21 2016 23:58                                                                                                    Page 8
 
 
    168             00000016   MD_DPY          equ     11<<1                   ; d,x
@@ -486,7 +486,7 @@
    221                                        long_i
 +  221 00:0002: C2 10                        rep     #X_FLAG
 +  221                                        longi   on
-  Thu Jan 21 2016 21:36                                                                                                    Page 9
+  Thu Jan 21 2016 23:58                                                                                                    Page 9
 
 
    222 00:0004: 20 xx xx                     jsr     TxCRLF
@@ -547,7 +547,7 @@
    275                        BackSpace:
    276 00:0053: E0 00                        cpx     #0                      ; Buffer empty?
    277 00:0055: F0 D3                        beq     RingBell                ; Yes, beep and continue
-  Thu Jan 21 2016 21:36                                                                                                    Page 10
+  Thu Jan 21 2016 23:58                                                                                                    Page 10
 
 
    278 00:0057: CA                           dex                             ; No, remove last character
@@ -608,7 +608,7 @@
    333 00:00AA: A5 24                        lda     ADDR_S+1
    334 00:00AC: 20 xx xx                     jsr     TxHex2
    335 00:00AF: A5 23                        lda     ADDR_S+0
-  Thu Jan 21 2016 21:36                                                                                                    Page 11
+  Thu Jan 21 2016 23:58                                                                                                    Page 11
 
 
    336 00:00B1: 20 xx xx                     jsr     TxHex2
@@ -669,7 +669,7 @@
    391                        
    392 00:0109: 18                           clc                             ; Move to next sector
    393 00:010A: A5 24                        lda     ADDR_S+1
-  Thu Jan 21 2016 21:36                                                                                                    Page 12
+  Thu Jan 21 2016 23:58                                                                                                    Page 12
 
 
    394 00:010C: 69 10                        adc     #$10
@@ -730,7 +730,7 @@
    447 00:014D: B0 03                        bcs     $+5
    448 00:014F: DC 23 00                     jmp     [ADDR_S]                ; Run from address
    449 00:0152: 6C FC FF                     jmp     ($FFFC)                 ; Otherwise reset
-  Thu Jan 21 2016 21:36                                                                                                    Page 13
+  Thu Jan 21 2016 23:58                                                                                                    Page 13
 
 
    450                        NotGoto:
@@ -791,7 +791,7 @@
    505 00:01AA: F0 32                        beq     HuntDone
    506                        
    507                        HuntNext
-  Thu Jan 21 2016 21:36                                                                                                    Page 14
+  Thu Jan 21 2016 23:58                                                                                                    Page 14
 
 
    508 00:01AC: A7 23                        lda     [ADDR_S]                ; Is byte is writeable?
@@ -852,7 +852,7 @@
    563 00:0205: 4C xx xx                     jmp     ShowError
    564 00:0208: A2 26                        ldx     #ADDR_E                 ; Parse end address
    565 00:020A: 20 xx xx                     jsr     GetAddr
-  Thu Jan 21 2016 21:36                                                                                                    Page 15
+  Thu Jan 21 2016 23:58                                                                                                    Page 15
 
 
    566 00:020D: 90 03                        bcc     $+5
@@ -913,7 +913,7 @@
    621                        ;-------------------------------------------------------------------------------
    622                        
    623 00:026E: C9 53                        cmp     #'S'                    ; S19?
-  Thu Jan 21 2016 21:36                                                                                                    Page 16
+  Thu Jan 21 2016 23:58                                                                                                    Page 16
 
 
    624 00:0270: F0 03                        beq     $+5
@@ -974,7 +974,7 @@
    679 00:02D3: D0 02                        bne     $+4
    680 00:02D5: E6 24                        inc     ADDR_S+1
    681                        
-  Thu Jan 21 2016 21:36                                                                                                    Page 17
+  Thu Jan 21 2016 23:58                                                                                                    Page 17
 
 
    682 00:02D7: A5 26                        lda     ADDR_E                  ; Reached checksum?
@@ -1035,7 +1035,7 @@
    735                        
    736 00:0322: 24 24                        bit     ADDR_S+1                ; Load into ROM area?
    737 00:0324: 10 03                        bpl     $+5
-  Thu Jan 21 2016 21:36                                                                                                    Page 18
+  Thu Jan 21 2016 23:58                                                                                                    Page 18
 
 
    738 00:0326: 20 xx xx                     jsr     CheckSafe               ; Yes, check selection
@@ -1096,7 +1096,7 @@
    793 00:0385: 20 xx xx                     jsr     CheckSafe               ; Yes, check selection
    794                        
    795                                        long_i                          ; Display waiting message
-  Thu Jan 21 2016 21:36                                                                                                    Page 19
+  Thu Jan 21 2016 23:58                                                                                                    Page 19
 
 
 +  795 00:0388: C2 10                        rep     #X_FLAG
@@ -1157,7 +1157,7 @@
    845 00:03E3: D0 49                        bne     TransferError
    846                        
    847 00:03E5: A0 00                        ldy     #0
-  Thu Jan 21 2016 21:36                                                                                                    Page 20
+  Thu Jan 21 2016 23:58                                                                                                    Page 20
 
 
    848 00:03E7: 84 2B                        sty     SUM                     ; Clear the check sum
@@ -1218,7 +1218,7 @@
    903 00:043C: 4C xx xx                     jmp     UartTx
    904                        
    905                        SendNAK:
-  Thu Jan 21 2016 21:36                                                                                                    Page 21
+  Thu Jan 21 2016 23:58                                                                                                    Page 21
 
 
    906 00:043F: A9 15                        lda     #NAK
@@ -1279,7 +1279,7 @@
    955                        ;-------------------------------------------------------------------------------
    956                        
    957                        ; Parse a hex byte from the command line and store it at the location indicated
-  Thu Jan 21 2016 21:36                                                                                                    Page 22
+  Thu Jan 21 2016 23:58                                                                                                    Page 22
 
 
    958                        ; by the X register.
@@ -1340,7 +1340,7 @@
   1013                        ; Add a hex digit to the 16-bit value being build at at the location indicated
   1014                        ; by X.
   1015                        
-  Thu Jan 21 2016 21:36                                                                                                    Page 23
+  Thu Jan 21 2016 23:58                                                                                                    Page 23
 
 
   1016                        AddDigit:
@@ -1401,7 +1401,7 @@
   1071 00:0519: A4 21                        ldy     BUFLEN
   1072 00:051B: E6 21                        inc     BUFLEN
   1073 00:051D: 99 00 02                     sta     BUFFER,y
-  Thu Jan 21 2016 21:36                                                                                                    Page 24
+  Thu Jan 21 2016 23:58                                                                                                    Page 24
 
 
   1074 00:0520: 60                           rts
@@ -1462,7 +1462,7 @@
   1129 00:0556: 90 EC                        bcc     SetCarry
   1130 00:0558: 80 EC                        bra     ClearCarry
   1131                        
-  Thu Jan 21 2016 21:36                                                                                                    Page 25
+  Thu Jan 21 2016 23:58                                                                                                    Page 25
 
 
   1132                        ; Determine if the character in MD_ACC is a printable character. Set the carry if it
@@ -1523,7 +1523,7 @@
   1187 00:0586: E8                           inx                             ; Bump the pointer
   1188 00:0587: 80 F4                        bra     TxStr                   ; And repeat
   1189                        
-  Thu Jan 21 2016 21:36                                                                                                    Page 26
+  Thu Jan 21 2016 23:58                                                                                                    Page 26
 
 
   1190                        ; Display a CR/LF control character sequence.
@@ -1584,7 +1584,7 @@
   1245                        
   1246                        ;
   1247                        
-  Thu Jan 21 2016 21:36                                                                                                    Page 27
+  Thu Jan 21 2016 23:58                                                                                                    Page 27
 
 
   1248                                        longa   off
@@ -1645,7 +1645,7 @@
   1301 00:060E: xx xx                        dw      TxLongX                 ; al,x
   1302 00:0610: xx xx                        dw      TxAbsoluteIndirect      ; (a)
   1303 00:0612: xx xx                        dw      TxAbsoluteXIndirect     ; (a,x)
-  Thu Jan 21 2016 21:36                                                                                                    Page 28
+  Thu Jan 21 2016 23:58                                                                                                    Page 28
 
 
   1304 00:0614: xx xx                        dw      TxDirect                ; d
@@ -1706,7 +1706,7 @@
   1359                        TxDirect:
   1360 00:0667: A9 24                        lda     #'$'
   1361 00:0669: 20 xx xx                     jsr     UartTx
-  Thu Jan 21 2016 21:36                                                                                                    Page 29
+  Thu Jan 21 2016 23:58                                                                                                    Page 29
 
 
   1362 00:066C: A0 01                        ldy     #1
@@ -1767,7 +1767,7 @@
   1417                        TxAbsoluteIndirect:
   1418 00:06CB: A9 28                        lda     #'('
   1419 00:06CD: 20 xx xx                     jsr     UartTx
-  Thu Jan 21 2016 21:36                                                                                                    Page 30
+  Thu Jan 21 2016 23:58                                                                                                    Page 30
 
 
   1420 00:06D0: 20 xx xx                     jsr     TxAbsolute
@@ -1828,7 +1828,7 @@
   1475 00:0736: 18                           clc
   1476 00:0737: 69 02                        adc     #2
   1477 00:0739: 90 01                        bcc     $+3
-  Thu Jan 21 2016 21:36                                                                                                    Page 31
+  Thu Jan 21 2016 23:58                                                                                                    Page 31
 
 
   1478 00:073B: E8                           inx
@@ -1889,7 +1889,7 @@
   1533 00:0782: xx xx                        dw      Size4                   ; al,x
   1534 00:0784: xx xx                        dw      Size3                   ; (a)
   1535 00:0786: xx xx                        dw      Size3                   ; (a,x)
-  Thu Jan 21 2016 21:36                                                                                                    Page 32
+  Thu Jan 21 2016 23:58                                                                                                    Page 32
 
 
   1536 00:0788: xx xx                        dw      Size2                   ; d
@@ -1950,7 +1950,7 @@
   1591 00:0802: 0C 02 76 02                  db      OP_BIT,OP_AND,OP_ROL,OP_AND
   1592 00:0806: 7A 34 B2 34                  db      OP_RTI,OP_EOR,OP_WDM,OP_EOR     ; 40
   1593 00:080A: 4E 34 4A 34                  db      OP_MVP,OP_EOR,OP_LSR,OP_EOR
-  Thu Jan 21 2016 21:36                                                                                                    Page 33
+  Thu Jan 21 2016 23:58                                                                                                    Page 33
 
 
   1594 00:080E: 5A 34 4A 60                  db      OP_PHA,OP_EOR,OP_LSR,OP_PHK
@@ -2011,7 +2011,7 @@
   1649 00:08E2: 00 04 04 0A                  db      MD_ABS,MD_ABX,MD_ABX,MD_ALX
   1650 00:08E6: 00 1E 08 12                  db      MD_ABS,MD_DIX,MD_ALG,MD_STK     ; 20
   1651 00:08EA: 10 10 10 1A                  db      MD_DPG,MD_DPG,MD_DPG,MD_DLI
-  Thu Jan 21 2016 21:36                                                                                                    Page 34
+  Thu Jan 21 2016 23:58                                                                                                    Page 34
 
 
   1652 00:08EE: 24 2C 02 24                  db      MD_IMP,MD_IMM,MD_ACC,MD_IMP
@@ -2072,7 +2072,7 @@
   1707                        MNEMONICS:
   1708                                        MNEM    'A','D','C'
 + 1708 00:09C6: 83 04                        dw      (((('A'-'@')<<5)|('D'-'@'))<<5)|('C'-'@')
-  Thu Jan 21 2016 21:36                                                                                                    Page 35
+  Thu Jan 21 2016 23:58                                                                                                    Page 35
 
 
   1709                                        MNEM    'A','N','D'
@@ -2133,7 +2133,7 @@
 + 1736 00:09FE: D8 25                        dw      (((('I'-'@')<<5)|('N'-'@'))<<5)|('X'-'@')
   1737                                        MNEM    'I','N','Y'
 + 1737 00:0A00: D9 25                        dw      (((('I'-'@')<<5)|('N'-'@'))<<5)|('Y'-'@')
-  Thu Jan 21 2016 21:36                                                                                                    Page 36
+  Thu Jan 21 2016 23:58                                                                                                    Page 36
 
 
   1738                                        MNEM    'J','M','L'
@@ -2194,7 +2194,7 @@
 + 1765 00:0A38: 99 41                        dw      (((('P'-'@')<<5)|('L'-'@'))<<5)|('Y'-'@')
   1766                                        MNEM    'R','E','P'
 + 1766 00:0A3A: B0 48                        dw      (((('R'-'@')<<5)|('E'-'@'))<<5)|('P'-'@')
-  Thu Jan 21 2016 21:36                                                                                                    Page 37
+  Thu Jan 21 2016 23:58                                                                                                    Page 37
 
 
   1767                                        MNEM    'R','O','L'
@@ -2255,7 +2255,7 @@
 + 1794 00:0A72: 21 53                        dw      (((('T'-'@')<<5)|('Y'-'@'))<<5)|('A'-'@')
   1795                                        MNEM    'T','Y','X'
 + 1795 00:0A74: 38 53                        dw      (((('T'-'@')<<5)|('Y'-'@'))<<5)|('X'-'@')
-  Thu Jan 21 2016 21:36                                                                                                    Page 38
+  Thu Jan 21 2016 23:58                                                                                                    Page 38
 
 
   1796                                        MNEM    'W','A','I'
@@ -2280,10 +2280,10 @@
        00:0A84: 32 36 35 53 
        00:0A88: 58 42 
   1811                                        endif
-  1812 00:0A8A: 2D 48 61 63                  db      "-Hacker [15.12]",0
+  1812 00:0A8A: 2D 48 61 63                  db      "-Hacker [16.01]",0
        00:0A8E: 6B 65 72 20 
-       00:0A92: 5B 31 35 2E 
-       00:0A96: 31 32 5D 00 
+       00:0A92: 5B 31 36 2E 
+       00:0A96: 30 31 5D 00 
   1813                        
   1814 00:0A9A: 0D 0A 45 72  ERROR           db      CR,LF,"Error - Type ? for help",0
        00:0A9E: 72 6F 72 20 
@@ -2316,7 +2316,7 @@
   1820                        
   1821 00:0AFF: 0D 0A 57 61  WAITING         db      CR,LF,"Waiting for XMODEM transfer to start",0
        00:0B03: 69 74 69 6E 
-  Thu Jan 21 2016 21:36                                                                                                    Page 39
+  Thu Jan 21 2016 23:58                                                                                                    Page 39
 
 
        00:0B07: 67 20 66 6F 
@@ -2364,98 +2364,106 @@
        00:0BA3: 20 61 72 65 
        00:0BA7: 61 
   1827                                        ifdef   W65C265SXB
-  1828 00:0BA8: 0D 0A 46 20                  db      CR,LF,"F 0-1          - Enable/Disable WDC ROM"
+  1828 00:0BA8: 0D 0A 46 20                  db      CR,LF,"F 0-1          - Disable/Enable WDC ROM"
        00:0BAC: 30 2D 31 20 
        00:0BB0: 20 20 20 20 
        00:0BB4: 20 20 20 20 
-       00:0BB8: 20 2D 20 45 
-       00:0BBC: 6E 61 62 6C 
-       00:0BC0: 65 2F 44 69 
-       00:0BC4: 73 61 62 6C 
+       00:0BB8: 20 2D 20 44 
+       00:0BBC: 69 73 61 62 
+       00:0BC0: 6C 65 2F 45 
+       00:0BC4: 6E 61 62 6C 
        00:0BC8: 65 20 57 44 
        00:0BCC: 43 20 52 4F 
        00:0BD0: 4D 
-  1829                                        endif
-  1830 00:0BD1: 0D 0A 47 20                  db      CR,LF,"G [xxxx]       - Run from bb:xxxx or invoke reset vector"
-  Thu Jan 21 2016 21:36                                                                                                    Page 40
+  1829 00:0BD1: 0D 0A 48 20                  db      CR,LF,"H              - Hunt for RAM"
+       00:0BD5: 20 20 20 20 
+  Thu Jan 21 2016 23:58                                                                                                    Page 40
 
 
-       00:0BD5: 5B 78 78 78 
-       00:0BD9: 78 5D 20 20 
+       00:0BD9: 20 20 20 20 
        00:0BDD: 20 20 20 20 
-       00:0BE1: 20 2D 20 52 
-       00:0BE5: 75 6E 20 66 
-       00:0BE9: 72 6F 6D 20 
-       00:0BED: 62 62 3A 78 
-       00:0BF1: 78 78 78 20 
-       00:0BF5: 6F 72 20 69 
-       00:0BF9: 6E 76 6F 6B 
-       00:0BFD: 65 20 72 65 
-       00:0C01: 73 65 74 20 
-       00:0C05: 76 65 63 74 
-       00:0C09: 6F 72 
-  1831 00:0C0B: 0D 0A 4D 20                  db      CR,LF,"M ssss eeee    - Display memory in current bank"
-       00:0C0F: 73 73 73 73 
-       00:0C13: 20 65 65 65 
-       00:0C17: 65 20 20 20 
-       00:0C1B: 20 2D 20 44 
-       00:0C1F: 69 73 70 6C 
-       00:0C23: 61 79 20 6D 
-       00:0C27: 65 6D 6F 72 
-       00:0C2B: 79 20 69 6E 
-       00:0C2F: 20 63 75 72 
-       00:0C33: 72 65 6E 74 
-       00:0C37: 20 62 61 6E 
-       00:0C3B: 6B 
-  1832 00:0C3C: 0D 0A 52 20                  db      CR,LF,"R 0-3          - Select ROM bank 0-3"
-       00:0C40: 30 2D 33 20 
-       00:0C44: 20 20 20 20 
-       00:0C48: 20 20 20 20 
-       00:0C4C: 20 2D 20 53 
-       00:0C50: 65 6C 65 63 
-       00:0C54: 74 20 52 4F 
-       00:0C58: 4D 20 62 61 
-       00:0C5C: 6E 6B 20 30 
-       00:0C60: 2D 33 
-  1833 00:0C62: 0D 0A 53 2E                  db      CR,LF,"S...           - Process S19 record"
-       00:0C66: 2E 2E 20 20 
-       00:0C6A: 20 20 20 20 
-       00:0C6E: 20 20 20 20 
-       00:0C72: 20 2D 20 50 
-       00:0C76: 72 6F 63 65 
-       00:0C7A: 73 73 20 53 
-       00:0C7E: 31 39 20 72 
-       00:0C82: 65 63 6F 72 
-       00:0C86: 64 
-  1834 00:0C87: 0D 0A 57 20                  db      CR,LF,"W xxxx yy      - Set memory at xxxx to yy"
-       00:0C8B: 78 78 78 78 
-       00:0C8F: 20 79 79 20 
-       00:0C93: 20 20 20 20 
-       00:0C97: 20 2D 20 53 
-       00:0C9B: 65 74 20 6D 
-       00:0C9F: 65 6D 6F 72 
-       00:0CA3: 79 20 61 74 
-       00:0CA7: 20 78 78 78 
-       00:0CAB: 78 20 74 6F 
-       00:0CAF: 20 79 79 
-  Thu Jan 21 2016 21:36                                                                                                    Page 41
+       00:0BE1: 20 2D 20 48 
+       00:0BE5: 75 6E 74 20 
+       00:0BE9: 66 6F 72 20 
+       00:0BED: 52 41 4D 
+  1830                                        endif
+  1831 00:0BF0: 0D 0A 47 20                  db      CR,LF,"G [xxxx]       - Run from bb:xxxx or invoke reset vector"
+       00:0BF4: 5B 78 78 78 
+       00:0BF8: 78 5D 20 20 
+       00:0BFC: 20 20 20 20 
+       00:0C00: 20 2D 20 52 
+       00:0C04: 75 6E 20 66 
+       00:0C08: 72 6F 6D 20 
+       00:0C0C: 62 62 3A 78 
+       00:0C10: 78 78 78 20 
+       00:0C14: 6F 72 20 69 
+       00:0C18: 6E 76 6F 6B 
+       00:0C1C: 65 20 72 65 
+       00:0C20: 73 65 74 20 
+       00:0C24: 76 65 63 74 
+       00:0C28: 6F 72 
+  1832 00:0C2A: 0D 0A 4D 20                  db      CR,LF,"M ssss eeee    - Display memory in current bank"
+       00:0C2E: 73 73 73 73 
+       00:0C32: 20 65 65 65 
+       00:0C36: 65 20 20 20 
+       00:0C3A: 20 2D 20 44 
+       00:0C3E: 69 73 70 6C 
+       00:0C42: 61 79 20 6D 
+       00:0C46: 65 6D 6F 72 
+       00:0C4A: 79 20 69 6E 
+       00:0C4E: 20 63 75 72 
+       00:0C52: 72 65 6E 74 
+       00:0C56: 20 62 61 6E 
+       00:0C5A: 6B 
+  1833 00:0C5B: 0D 0A 52 20                  db      CR,LF,"R 0-3          - Select ROM bank 0-3"
+       00:0C5F: 30 2D 33 20 
+       00:0C63: 20 20 20 20 
+       00:0C67: 20 20 20 20 
+       00:0C6B: 20 2D 20 53 
+       00:0C6F: 65 6C 65 63 
+       00:0C73: 74 20 52 4F 
+       00:0C77: 4D 20 62 61 
+       00:0C7B: 6E 6B 20 30 
+       00:0C7F: 2D 33 
+  1834 00:0C81: 0D 0A 53 2E                  db      CR,LF,"S...           - Process S19 record"
+       00:0C85: 2E 2E 20 20 
+       00:0C89: 20 20 20 20 
+       00:0C8D: 20 20 20 20 
+       00:0C91: 20 2D 20 50 
+       00:0C95: 72 6F 63 65 
+       00:0C99: 73 73 20 53 
+       00:0C9D: 31 39 20 72 
+       00:0CA1: 65 63 6F 72 
+       00:0CA5: 64 
+  1835 00:0CA6: 0D 0A 57 20                  db      CR,LF,"W xxxx yy      - Set memory at xxxx to yy"
+       00:0CAA: 78 78 78 78 
+       00:0CAE: 20 79 79 20 
+  Thu Jan 21 2016 23:58                                                                                                    Page 41
 
 
-  1835 00:0CB2: 0D 0A 58 20                  db      CR,LF,"X xxxx         - XMODEM receive to bb:xxxx"
-       00:0CB6: 78 78 78 78 
-       00:0CBA: 20 20 20 20 
-       00:0CBE: 20 20 20 20 
-       00:0CC2: 20 2D 20 58 
-       00:0CC6: 4D 4F 44 45 
-       00:0CCA: 4D 20 72 65 
-       00:0CCE: 63 65 69 76 
-       00:0CD2: 65 20 74 6F 
-       00:0CD6: 20 62 62 3A 
-       00:0CDA: 78 78 78 78 
-  1836 00:0CDE: 00                           db      0
-  1837                        
-  1838                                        end
+       00:0CB2: 20 20 20 20 
+       00:0CB6: 20 2D 20 53 
+       00:0CBA: 65 74 20 6D 
+       00:0CBE: 65 6D 6F 72 
+       00:0CC2: 79 20 61 74 
+       00:0CC6: 20 78 78 78 
+       00:0CCA: 78 20 74 6F 
+       00:0CCE: 20 79 79 
+  1836 00:0CD1: 0D 0A 58 20                  db      CR,LF,"X xxxx         - XMODEM receive to bb:xxxx"
+       00:0CD5: 78 78 78 78 
+       00:0CD9: 20 20 20 20 
+       00:0CDD: 20 20 20 20 
+       00:0CE1: 20 2D 20 58 
+       00:0CE5: 4D 4F 44 45 
+       00:0CE9: 4D 20 72 65 
+       00:0CED: 63 65 69 76 
+       00:0CF1: 65 20 74 6F 
+       00:0CF5: 20 62 62 3A 
+       00:0CF9: 78 78 78 78 
+  1837 00:0CFD: 00                           db      0
+  1838                        
+  1839                                        end
 
 
-      Lines assembled: 2187
+      Lines assembled: 2188
       Errors: 0
