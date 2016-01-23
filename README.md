@@ -7,12 +7,8 @@ banks and maps one these into the memory area between $00:8000 and $00:FFFF.
 
 On reset the choice of default bank is controlled by two pull up resistors
 on the FAMS and FA15 signal tracks. Once your SXB is running you can change
-the bank by configuring one or both of CA1 and CB1 as low outputs using the
-PCR register of VIA2.
-
-One or both of the LEDs next to FAMS and FA15 test points (beside the Flash ROM
-socket) will light up when one of the reprogrammable banks is enabled. If both
-LEDs are off then the WDC firmware bank is enabled.
+the bank by configuring one or both of PD4<3> and PD4<4> as low outputs or
+high impedence inputs using the PD4 and PDD4 registers.
 
 The WDC boot ROM is part of W65C265 processor so it can not be erased (but it
 can be disabled). The mask ROM tests for the character sequence 'WDC' at various
@@ -23,10 +19,12 @@ it).
 
 ## UART Connections
 
-The hacking tool uses the ACIA to communicate with your PC and download new
-ROM images. You will need a USB Serial adapter (like one of the cheap PL2303
-modules with jumper wires sold on eBay) to establish a connection. You must
-connect the TXD, RXD and GND lines between the SXB and the USB adapter.
+The W65C265 microcontroller has four built in UARTS. The built in WDC monitor
+program uses UART3 at 9600 baud with automatic line control. The hacking tool
+is configured to use UART0 at 19200 baud with no line control so you will need
+a USB Serial adapter (like one of the cheap PL2303 modules with jumper wires
+sold on eBay) to establish a connection. You must connect the TXD, RXD and
+GND lines between the SXB and the USB adapter.
 
 You also need a terminal program like AlphaCom or Tera Term on your PC that
 supports XMODEM file transfers. Configure it to work at 19200 baud, 8 data
@@ -38,7 +36,7 @@ Use the WDC debugger to download the hacking tool to the SXB board and start
 execution. The tool will respond with a message in the terminal software.
 
 ```
-W65C265SXB-Hacker [15.12]
+W65C265SXB-Hacker [16.01]
 .
 ```
 The 'M' command allows you to display memory, for example 'M FFE0 FFFF' will
@@ -60,8 +58,8 @@ image to be loaded. After erasing the entire region should be set to FF
 values.
 
 The 'X' command starts an XMODEM download to the specified address. You can
-download into any memory area including the ROM as long as the WDC firmware
-bank is not selected.
+download into any memory area including the ROM but you must disable the
+mask ROM to write to the whole ROM area.
 ```
 .X A000
 
@@ -88,3 +86,28 @@ The 'B' command sets the memory bank (e.g. bits 23 to 16 of the address bus)
 when displaying or altering memory. I've added this command to support a
 hardware project I'm working on to add additional RAM via the XBUS connector.
 On a standard SXB board you can only access bank 00.
+
+The 'F' command allows you to disable the mask ROM and expose the whole of
+the flash ROM. An argument of '0' turns the ROM off while a '1' turns it back
+on.
+```
+.f 1
+.m e000 e020
+00:E000 4C 96 EB 4C EA F1 4C 06 E0 4C 23 F4 4C 61 E6 4C |L..L..L..L#.La.L|
+00:E010 84 E7 4C 9A EC 4C 73 EC 4C 93 EC 4C 6B EC 4C 5C |..L..Ls.L..Lk.L\|
+.f 0
+.m e000 e020
+00:E000 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF |................|
+00:E010 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF |................|
+```
+
+The 'H' command performs a search of the entire memory space (in 4K increments)
+to locate RAM areas. On a standard board all it will find is the 32K area on
+bank $00. If you have added RAM then it may find it in other locations, for
+example my 1M SRAM board displays this.
+```
+.h
+$00:0000-$00:7FFF
+$C0:0000-$FF:FFFF
+.
+```

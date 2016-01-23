@@ -366,6 +366,13 @@ NotDisassemble:
 
                 jsr     CheckSafe
 
+                ifdef   W65C265SXB
+                lda     BCR                     ; Save mask rom state
+                pha
+                lda     #$80                    ; Then ensure disabled
+                tsb     BCR
+                endif
+
                 lda     #$00                    ; Set start address
                 sta     ADDR_S+0
                 lda     #$80
@@ -394,6 +401,12 @@ EraseWait:
                 adc     #$10
                 sta     ADDR_S+1
                 bcc     EraseLoop               ; Repeat until end of memory
+
+                ifdef   W65C265SXB
+                pla                             ; Restore mask ROM state
+                sta     BCR
+                endif
+
                 jmp     NewCommand              ; And start over
 
 EraseFailed:
@@ -617,6 +630,26 @@ CharLoop:       lda     [ADDR_S],Y
 NotMemoryDisplay:
 
 ;===============================================================================
+; R - Select ROM Bank
+;-------------------------------------------------------------------------------
+
+                cmp     #'R'                    ; ROM Bank?
+                bne     NotROMBank              ; No
+
+                jsr     SkipSpaces              ; Find first argument
+                bcc     $+5                     ; Success?
+BankFail:       jmp     ShowError               ; No
+
+                cmp     #'0'                    ; Check bank is 0..3
+                bcc     BankFail
+                cmp     #'3'+1
+                bcs     BankFail
+
+                jsr     RomSelect               ; Switch ROM banks
+                jmp     NewCommand              ; Done
+NotROMBank:
+
+;===============================================================================
 ; S - S19 Record
 ;-------------------------------------------------------------------------------
 
@@ -700,26 +733,6 @@ S19Fail:
                 longi   off
                 jmp     NewCommand              ; And start over
 NotS19:
-
-;===============================================================================
-; R - Select ROM Bank
-;-------------------------------------------------------------------------------
-
-                cmp     #'R'                    ; ROM Bank?
-                bne     NotROMBank              ; No
-
-                jsr     SkipSpaces              ; Find first argument
-                bcc     $+5                     ; Success?
-BankFail:       jmp     ShowError               ; No
-
-                cmp     #'0'                    ; Check bank is 0..3
-                bcc     BankFail
-                cmp     #'3'+1
-                bcs     BankFail
-
-                jsr     RomSelect               ; Switch ROM banks
-                jmp     NewCommand              ; Done
-NotROMBank:
 
 ;===============================================================================
 ; W - Write memory
