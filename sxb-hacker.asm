@@ -476,13 +476,13 @@ NotGoto:
 
 HuntStart:
                 lda     [ADDR_S]                ; Is byte is writeable?
+                pha
                 eor     #$ff
                 sta     [ADDR_S]
-                nop
-                nop
                 cmp     [ADDR_S]
                 beq     HuntFound               ; Yes
 
+                pla
                 clc                             ; Try the next block
                 lda     ADDR_S+1
                 adc     #$10
@@ -494,9 +494,7 @@ HuntStart:
 
 HuntFound:
                 jsr     TxCRLF
-                lda     #'$'                    ; Print start address
-                jsr     UartTx
-                lda     ADDR_S+2
+                lda     ADDR_S+2                ; Print start address
                 jsr     TxHex2
                 lda     #':'
                 jsr     UartTx
@@ -509,6 +507,8 @@ HuntFound:
                 jsr     UartTx
 
 HuntEnd:
+                pla                             ; Restore memory bytes
+                sta     [ADDR_S]
                 clc                             ; Try the next block
                 lda     ADDR_S+1
                 adc     #$10
@@ -519,16 +519,14 @@ HuntEnd:
 
 HuntNext
                 lda     [ADDR_S]                ; Is byte is writeable?
+                pha
                 eor     #$ff
                 sta     [ADDR_S]
-                nop
-                nop
                 cmp     [ADDR_S]
                 beq     HuntEnd                 ; Yes, keep looking
 
-                lda     #'$'                    ; Print end address
-                jsr     UartTx
-                sec
+                pla
+                sec                             ; Print end address
                 lda     ADDR_S+0
                 sbc     #1
                 pha
@@ -547,9 +545,7 @@ HuntNext
                 bra     HuntStart
 
 HuntDone:
-                lda     #'$'                    ; Print $ff:ffff
-                jsr     UartTx
-                lda     #$ff
+                lda     #$ff                    ; Pring FF:FFFF
                 pha
                 pha
                 jsr     TxHex2
@@ -560,7 +556,6 @@ HuntDone:
                 pla
                 jsr     TxHex2
                 jmp     NewCommand
-
 NotHunt:
 
 ;===============================================================================

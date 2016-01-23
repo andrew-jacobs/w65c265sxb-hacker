@@ -26,6 +26,11 @@ a USB Serial adapter (like one of the cheap PL2303 modules with jumper wires
 sold on eBay) to establish a connection. You must connect the TXD, RXD and
 GND lines between the SXB and the USB adapter.
 
+> It would be possible to configure SXB-Hacker to use UART3 but then either
+> it would have to use the slower 9600 baud settings used by the Mensch monitor
+> or you would have to change the terminal settings after it started. I decided
+> to use a second UART to keep things simpler.
+
 You also need a terminal program like AlphaCom or Tera Term on your PC that
 supports XMODEM file transfers. Configure it to work at 19200 baud, 8 data
 bits, no parity and 1 stop bit.
@@ -107,7 +112,24 @@ bank $00. If you have added RAM then it may find it in other locations, for
 example my 1M SRAM board displays this.
 ```
 .h
-$00:0000-$00:7FFF
-$C0:0000-$FF:FFFF
-.
+00:0000-00:7FFF
+C0:0000-FF:FFFF
+```
+
+The 'D' command disassembles the instructions in the specified memory range,
+for example:
+```
+.d eb96 ebb0
+00:EB96 22 73 EC 00 JSL $00:EC73
+00:EB9A 90 03       BCC $EB9F
+00:EB9C 82 A8 00    BRL $EC47
+00:EB9F A5 4E       LDA $4E
+00:EBA1 89 01       BIT #$01
+00:EBA3 F0 04       BEQ $EBA9
+00:EBA5 A9 08       LDA #$08
+00:EBA7 80 02       BRA $EBAB
+00:EBA9 A9 10       LDA #$10
+00:EBAB 85 57       STA $57
+00:EBAD A5 62       LDA $62
+00:EBAF 22 70 F3 00 JSL $00:F370
 ```
