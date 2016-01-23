@@ -52,7 +52,7 @@ BRG_VALUE       equ     OSC_FREQ/(16*BAUD_RATE)-1
 RESET:
                 sei                             ; Disable interrupts
                 native                          ; Switch to native mode
-		long_i
+                long_i
                 ldx     #$01ff                  ; Reset the stack
                 txs
 
@@ -139,19 +139,19 @@ UartRxTest:
 RomSelect:
                 php
                 short_a
-                clc                             ; Rotate into high bits
-                ror     a
-                ror     a
-                ror     a
+                and     #$03                    ; Strip out bank number
+                asl     a                       ; And rotate into bits
+                asl     a
+                asl     a
                 pha                             ; Save bit pattern
-                eor     #$c0                    ; Invert to get directions
+                eor     #$18                    ; Invert to get directions
                 eor     PDD4                    ; Work out change
-                and     #$c0
+                and     #$18
                 eor     PDD4                    ; And apply to direction reg
                 sta     PDD4
                 pla
                 eor     PD4                     ; Then adjust data register
-                and     #$c0
+                and     #$18
                 eor     PD4
                 sta     PD4
                 plp                             ; Restore register sizes

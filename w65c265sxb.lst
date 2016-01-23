@@ -1,0 +1,471 @@
+  Sat Jan 23 2016 11:58                                                                                                    Page 1
+
+
+                                               ***************************************
+                                               **      WDC 65C816 Macro Assembler   **
+                                               **                                   **
+                                               **     Version 3.49.1- Feb  6 2006    **
+                                               ***************************************
+
+     1                        ;==============================================================================
+     2                        ; __        ____  ____   ____ ____   __  ____ ______  ______
+     3                        ; \ \      / / /_| ___| / ___|___ \ / /_| ___/ ___\ \/ / __ )
+     4                        ;  \ \ /\ / / '_ \___ \| |     __) | '_ \___ \___ \\  /|  _ \
+     5                        ;   \ V  V /| (_) |__) | |___ / __/| (_) |__) |__) /  \| |_) |
+     6                        ;    \_/\_/  \___/____/ \____|_____|\___/____/____/_/\_\____/
+     7                        ;
+     8                        ; Basic Vector Handling for the W65C265SXB Development Board
+     9                        ;------------------------------------------------------------------------------
+    10                        ; Copyright (C)2015 HandCoded Software Ltd.
+    11                        ; All rights reserved.
+    12                        ;
+    13                        ; This work is made available under the terms of the Creative Commons
+    14                        ; Attribution-NonCommercial-ShareAlike 4.0 International license. Open the
+    15                        ; following URL to see the details.
+    16                        ;
+    17                        ; http://creativecommons.org/licenses/by-nc-sa/4.0/
+    18                        ;
+    19                        ;==============================================================================
+    20                        ; Notes:
+    21                        ;
+    22                        ;------------------------------------------------------------------------------
+    23                        
+    24                                        pw      132
+    25                                        inclist on
+    26                        
+    27                                        chip    65816
+    28                        
+    29                                        include "w65c265.inc"
+     1                        ;===============================================================================
+     2                        ; __        ____  ____   ____ ____   __  ____
+     3                        ; \ \      / / /_| ___| / ___|___ \ / /_| ___|
+     4                        ;  \ \ /\ / / '_ \___ \| |     __) | '_ \___ \
+     5                        ;   \ V  V /| (_) |__) | |___ / __/| (_) |__) |
+     6                        ;    \_/\_/  \___/____/ \____|_____|\___/____/
+     7                        ;
+     8                        ; Western Design Center W65C265 device definitions
+     9                        ;-------------------------------------------------------------------------------
+    10                        ; Copyright (C)2015 HandCoded Software Ltd.
+    11                        ; All rights reserved.
+    12                        ;
+    13                        ; This work is made available under the terms of the Creative Commons
+    14                        ; Attribution-NonCommercial-ShareAlike 4.0 International license. Open the
+    15                        ; following URL to see the details.
+    16                        ;
+    17                        ; http://creativecommons.org/licenses/by-nc-sa/4.0/
+    18                        ;
+    19                        ;===============================================================================
+    20                        ; Notes:
+    21                        ;
+    22                        ; Various macros and definitions for the W65C265 microcontroller.
+    23                        ;
+  Sat Jan 23 2016 11:58                                                                                                    Page 2
+
+
+    24                        ;===============================================================================
+    25                        ; Revision History:
+    26                        ;
+    27                        ; 2015-12-18 AJ Initial version
+    28                        ;-------------------------------------------------------------------------------
+    29                        ; $Id$
+    30                        ;-------------------------------------------------------------------------------
+    31                        
+    32                        ;===============================================================================
+    33                        ; Hardware Registers
+    34                        ;-------------------------------------------------------------------------------
+    35                        
+    36                        ;00DF00-1F CS0 Port Replacement & Expansion uninitialized
+    37                        
+    38             0000DF00   PD0             equ     $00DF00         ; Port 0 Data Register
+    39             0000DF01   PD1             equ     $00DF01         ; Port 1 Data Register
+    40             0000DF02   PD2             equ     $00DF02         ; Port 2 Data Register
+    41             0000DF03   PD3             equ     $00DF03         ; Port 3 Data Register
+    42             0000DF04   PDD0            equ     $00DF04         ; Port 0 Data Direction Register
+    43             0000DF05   PDD1            equ     $00DF05         ; Port 1 Data Direction Register
+    44             0000DF06   PDD2            equ     $00DF06         ; Port 2 Data Direction Register
+    45             0000DF07   PDD3            equ     $00DF07         ; Port 3 Data Direction Register
+    46                        
+    47             0000DF20   PD4             equ     $00DF20         ; Port 4 Data Register
+    48             0000DF21   PD5             equ     $00DF21         ; Port 5 Data Register
+    49             0000DF22   PD6             equ     $00DF22         ; Port 6 Data Register
+    50             0000DF23   PD7             equ     $00DF23         ; Port 7 Data Register
+    51             0000DF24   PDD4            equ     $00DF24         ; Port 4 Data Direction Register
+    52             0000DF25   PDD5            equ     $00DF25         ; Port 5 Data Direction Register
+    53             0000DF26   PDD6            equ     $00DF26         ; Port 6 Data Direction Register
+    54             0000DF27   PCS7            equ     $00DF27         ; Port 7 Chip Select
+    55                        
+    56                        ;00DF28-3F --- Reserved uninitialized
+    57                        
+    58             0000DF40   BCR             equ     $00DF40         ; Bus Control Register
+    59             0000DF41   SSCR            equ     $00DF41         ; System Speed Control Register
+    60             0000DF42   TCR             equ     $00DF42         ; Timer Control Register
+    61             0000DF43   TER             equ     $00DF43         ; Timer Enable Register
+    62             0000DF44   TIFR            equ     $00DF44         ; Timer Interrupt Flag Register
+    63             0000DF45   EIFR            equ     $00DF45         ; Edge Interrupt Flag Register
+    64             0000DF46   TIER            equ     $00DF46         ; Timer Interrupt Enable Register
+    65             0000DF47   EIER            equ     $00DF47         ; Edge Interrupt Enable Register
+    66             0000DF48   UIFR            equ     $00DF48         ; UART Interrupt Flag Register
+    67             0000DF49   UIER            equ     $00DF49         ; UART Interrupt Enable Register
+    68                        
+    69             0000DF50   T0LL            equ     $00DF50         ; Timer 0 Latch Low
+    70             0000DF51   T0LH            equ     $00DF51         ; Timer 0 Latch High
+    71             0000DF52   T1LL            equ     $00DF52         ; Timer 1 Latch Low
+    72             0000DF53   T1LH            equ     $00DF53         ; Timer 1 Latch High
+    73             0000DF54   T2LL            equ     $00DF54         ; Timer 2 Latch Low
+    74             0000DF55   T2LH            equ     $00DF55         ; Timer 2 Latch High
+    75             0000DF56   T3LL            equ     $00DF56         ; Timer 3 Latch Low
+    76             0000DF57   T3LH            equ     $00DF57         ; Timer 3 Latch High
+    77             0000DF58   T4LL            equ     $00DF58         ; Timer 4 Latch Low
+    78             0000DF59   T4LH            equ     $00DF59         ; Timer 4 Latch High
+    79             0000DF5A   T5LL            equ     $00DF5A         ; Timer 5 Latch Low
+    80             0000DF5B   T5LH            equ     $00DF5B         ; Timer 5 Latch High
+    81             0000DF5C   T6LL            equ     $00DF5C         ; Timer 6 Latch Low
+  Sat Jan 23 2016 11:58                                                                                                    Page 3
+
+
+    82             0000DF5D   T6LH            equ     $00DF5D         ; Timer 6 Latch High
+    83             0000DF5E   T7LL            equ     $00DF5E         ; Timer 7 Latch Low
+    84             0000DF5F   T7LH            equ     $00DF5F         ; Timer 7 Latch High
+    85             0000DF60   T0CL            equ     $00DF60         ; Timer 0 Counter Low
+    86             0000DF61   T0CH            equ     $00DF61         ; Timer 0 Counter High
+    87             0000DF62   T1CL            equ     $00DF62         ; Timer 1 Counter Low
+    88             0000DF63   T1CH            equ     $00DF63         ; Timer 1 Counter High
+    89             0000DF64   T2CL            equ     $00DF64         ; Timer 2 Counter Low
+    90             0000DF65   T2CH            equ     $00DF65         ; Timer 2 Counter High
+    91             0000DF66   T3CL            equ     $00DF66         ; Timer 3 Counter Low
+    92             0000DF67   T3CH            equ     $00DF67         ; Timer 3 Counter High
+    93             0000DF68   T4CL            equ     $00DF68         ; Timer 4 Counter Low
+    94             0000DF69   T4CH            equ     $00DF69         ; Timer 4 Counter High
+    95             0000DF6A   T5CL            equ     $00DF6A         ; Timer 5 Counter Low
+    96             0000DF6B   T5CH            equ     $00DF6B         ; Timer 5 Counter High
+    97             0000DF6C   T6CL            equ     $00DF6C         ; Timer 6 Counter Low
+    98             0000DF6D   T6CH            equ     $00DF6D         ; Timer 6 Counter High
+    99             0000DF6E   T7CL            equ     $00DF6E         ; Timer 7 Counter Low
+   100             0000DF6F   T7CH            equ     $00DF6F         ; Timer 7 Counter High
+   101                        
+   102                        ;00DFC0-FF CS1 COProcessor Expansion uninitialized
+   103                        
+   104             0000DF70   ACSR0           equ     $00DF70         ; UART 0 Control/Status Register
+   105             0000DF71   ARTD0           equ     $00DF71         ; UART 0 Data Register
+   106             0000DF72   ACSR1           equ     $00DF72         ; UART 1 Control/Status Register
+   107             0000DF73   ARTD1           equ     $00DF73         ; UART 1 Data Register
+   108             0000DF74   ACSR2           equ     $00DF74         ; UART 2 Control/Status Register
+   109             0000DF75   ARTD2           equ     $00DF75         ; UART 2 Data Register
+   110             0000DF76   ACSR3           equ     $00DF76         ; UART 3 Control/Status Register
+   111             0000DF77   ARTD3           equ     $00DF77         ; UART 3 Data Register
+   112             0000DF78   PIBFR           equ     $00DF78         ; Parallel Interface Flag Register
+   113             0000DF79   PIBER           equ     $00DF79         ; Parallel Interface Enable Register
+   114             0000DF7A   PIR2            equ     $00DF7A         ; Parallel Interface Register 2
+   115             0000DF7B   PIR3            equ     $00DF7B         ; Parallel Interface Register 3
+   116             0000DF7C   PIR4            equ     $00DF7C         ; Parallel Interface Register 4
+   117             0000DF7D   PIR5            equ     $00DF7D         ; Parallel Interface Register 5
+   118             0000DF7E   PIR6            equ     $00DF7E         ; Parallel Interface Register 6
+   119             0000DF7F   PIR7            equ     $00DF7F         ; Parallel Interface Register 7
+   120                        
+   121                        ;00DF80-BF RAM RAM Registers uninitialized
+   122                        
+   123                                        include "w65c816.inc"
+     1                        ;==============================================================================
+     2                        ; __        ____  ____   ____ ___  _  __   
+     3                        ; \ \      / / /_| ___| / ___( _ )/ |/ /_  
+     4                        ;  \ \ /\ / / '_ \___ \| |   / _ \| | '_ \ 
+     5                        ;   \ V  V /| (_) |__) | |__| (_) | | (_) |
+     6                        ;    \_/\_/  \___/____/ \____\___/|_|\___/ 
+     7                        ;
+     8                        ; Western Design Center W65C816 device definitions                                          
+     9                        ;------------------------------------------------------------------------------
+    10                        ; Copyright (C)2015 HandCoded Software Ltd.
+    11                        ; All rights reserved.
+    12                        ;
+    13                        ; This work is made available under the terms of the Creative Commons
+    14                        ; Attribution-NonCommercial-ShareAlike 4.0 International license. Open the
+    15                        ; following URL to see the details.
+    16                        ;
+  Sat Jan 23 2016 11:58                                                                                                    Page 4
+
+
+    17                        ; http://creativecommons.org/licenses/by-nc-sa/4.0/
+    18                        ;
+    19                        ;===============================================================================
+    20                        ; Notes:
+    21                        ;
+    22                        ; Various macros and definitions for the W65C816 microprocessor.
+    23                        ;
+    24                        ;===============================================================================
+    25                        ; Revision History:
+    26                        ;
+    27                        ; 2015-12-18 AJ Initial version
+    28                        ;-------------------------------------------------------------------------------
+    29                        ; $Id$
+    30                        ;-------------------------------------------------------------------------------
+    31                        
+    32                        ;==============================================================================
+    33                        ; Status Register Bits
+    34                        ;------------------------------------------------------------------------------
+    35                        
+    36             00000080   N_FLAG          equ     1<<7
+    37             00000040   V_FLAG          equ     1<<6
+    38             00000020   M_FLAG          equ     1<<5
+    39             00000010   X_FLAG          equ     1<<4
+    40             00000010   B_FLAG          equ     1<<4
+    41             00000008   D_FLAG          equ     1<<3
+    42             00000004   I_FLAG          equ     1<<2
+    43             00000002   Z_FLAG          equ     1<<1
+    44             00000001   C_FLAG          equ     1<<0
+    45                        
+    46                        ;==============================================================================
+    47                        ; Macros
+    48                        ;------------------------------------------------------------------------------
+    49                        
+    50                        ; Puts the processor in emulation mode. A, X and Y become 8-bits and the stack
+    51                        ; is fixed at $0100-$01ff. 
+    52                        
+    53                        emulate         macro
+    54                                        sec
+    55                                        xce
+    56                                        endm
+    57                        
+    58                        ; Puts the processor in native mode. The size of the memory and index register
+    59                        ; operations is not controlled by the M & X bits in the status register.
+    60                        
+    61                        native          macro
+    62                                        clc
+    63                                        xce
+    64                                        endm
+    65                        
+    66                        ; Resets the M bit making the accumulator and memory accesses 16-bits wide.
+    67                         
+    68                        long_a          macro
+    69                                        rep     #M_FLAG
+    70                                        longa   on
+    71                                        endm
+    72                        
+    73                        ; Resets the X bit making the index registers 16-bits wide
+    74                        
+  Sat Jan 23 2016 11:58                                                                                                    Page 5
+
+
+    75                        long_i          macro
+    76                                        rep     #X_FLAG
+    77                                        longi   on
+    78                                        endm
+    79                        
+    80                        ; Resets the M and X bits making the accumulator, memory accesses and index
+    81                        ; registers 16-bits wide.
+    82                                        
+    83                        long_ai         macro
+    84                                        rep     #M_FLAG|X_FLAG
+    85                                        longa   on
+    86                                        longi   on
+    87                                        endm
+    88                        
+    89                        ; Sets the M bit making the accumulator and memory accesses 8-bits wide.
+    90                        
+    91                        short_a         macro
+    92                                        sep     #M_FLAG
+    93                                        longa   off
+    94                                        endm
+    95                        
+    96                        ; Sets the X bit making the index registers 8-bits wide.
+    97                        
+    98                        short_i         macro
+    99                                        sep     #X_FLAG
+   100                                        longi   off
+   101                                        endm
+   102                                        
+   103                        ; Sets the M & X bits making the accumulator, memory accesses and index
+   104                        ; registers 8-bits wide.
+   105                        
+   106                        short_ai        macro
+   107                                        sep     #M_FLAG|X_FLAG
+   108                                        longa   off
+   109                                        longi   off
+   110                                        endm
+    30                                        include "w65c265sxb.inc"
+     1                        ;==============================================================================
+     2                        ; __        ____  ____   ____ ____   __  ____ ______  ______  
+     3                        ; \ \      / / /_| ___| / ___|___ \ / /_| ___/ ___\ \/ / __ ) 
+     4                        ;  \ \ /\ / / '_ \___ \| |     __) | '_ \___ \___ \\  /|  _ \ 
+     5                        ;   \ V  V /| (_) |__) | |___ / __/| (_) |__) |__) /  \| |_) |
+     6                        ;    \_/\_/  \___/____/ \____|_____|\___/____/____/_/\_\____/ 
+     7                        ;
+     8                        ; Western Design Center W65C265SXB Development Board Hardware Definitions
+     9                        ;------------------------------------------------------------------------------
+    10                        ; Copyright (C)2015 HandCoded Software Ltd.
+    11                        ; All rights reserved.
+    12                        ;
+    13                        ; This work is made available under the terms of the Creative Commons
+    14                        ; Attribution-NonCommercial-ShareAlike 4.0 International license. Open the
+    15                        ; following URL to see the details.
+    16                        ;
+    17                        ; http://creativecommons.org/licenses/by-nc-sa/4.0/
+    18                        ;
+    19                        ;==============================================================================
+    20                        ; Notes:
+    21                        ;
+  Sat Jan 23 2016 11:58                                                                                                    Page 6
+
+
+    22                        ;------------------------------------------------------------------------------
+    23                        
+    24             00384000   OSC_FREQ        equ     3686400      	; SXB runs at 3.6864MHz
+    31                        
+    32                        ;==============================================================================
+    33                        ; Configuration
+    34                        ;------------------------------------------------------------------------------
+    35                        
+    36             00004B00   BAUD_RATE       equ     19200                   ; ACIA baud rate
+    37                        
+    38             0000000B   BRG_VALUE       equ     OSC_FREQ/(16*BAUD_RATE)-1
+    39                        
+    40                                        if      BRG_VALUE&$ffff0000
+    41                                        messg   "BRG_VALUE does not fit in 16-bits"
+    42                                        endif
+    43                        
+    44                        ;==============================================================================
+    45                        ; Power On Reset
+    46                        ;------------------------------------------------------------------------------
+    47                        
+    48                                        code
+    49                                        extern  Start
+    50                                        longi   off
+    51                                        longa   off
+    52                        RESET:
+    53 00:0000: 78                           sei                             ; Disable interrupts
+    54                                        native                          ; Switch to native mode
++   54 00:0001: 18                           clc
++   54 00:0002: FB                           xce
+    55                                        long_i
++   55 00:0003: C2 10                        rep     #X_FLAG
++   55                                        longi   on
+    56 00:0005: A2 FF 01                     ldx     #$01ff                  ; Reset the stack
+    57 00:0008: 9A                           txs
+    58                        
+    59                                        ; Ensure no via interrupts
+    60 00:0009: 9C 49 DF                     stz     UIER
+    61                        
+    62 00:000C: A9 C0                        lda     #$c0                    ; Ensure A15/AMS are output
+    63 00:000E: 8D 24 DF                     sta     PDD4
+    64 00:0011: 9C 20 DF                     stz     PD4                     ; And select bank 0
+    65                        
+    66 00:0014: A9 10                        lda     #%00010000              ; Set UART0 to use timer 3
+    67 00:0016: 1C 42 DF                     trb     TCR
+    68 00:0019: A9 0B                        lda     #<BRG_VALUE             ; And set baud rate
+    69 00:001B: 8D 66 DF                     sta     T3CL
+    70 00:001E: A9 00                        lda     #>BRG_VALUE
+    71 00:0020: 8D 67 DF                     sta     T3CH
+    72                        
+    73 00:0023: A9 08                        lda     #1<<3                   ; Enable timer 3
+    74 00:0025: 0C 43 DF                     tsb     TER
+    75                        
+    76 00:0028: A9 25                        lda     #%00100101              ; Set UART0 for 8-N-1
+    77 00:002A: 8D 70 DF                     sta     ACSR0
+    78                        
+    79 00:002D: 4C xx xx                     jmp     Start                   ; Jump to the application start
+    80                        
+    81                        ;==============================================================================
+  Sat Jan 23 2016 11:58                                                                                                    Page 7
+
+
+    82                        ; ACIA Interface
+    83                        ;------------------------------------------------------------------------------
+    84                        
+    85                        ; Wait until the last transmission has been completed then send the character
+    86                        ; in A.
+    87                        
+    88                                        public  UartTx
+    89                        UartTx:
+    90 00:0030: 48                           pha                             ; Save the character
+    91 00:0031: 08                           php                             ; Save register sizes
+    92                                        short_a                         ; Make A 8-bits
++   92 00:0032: E2 20                        sep     #M_FLAG
++   92                                        longa   off
+    93 00:0034: 48                           pha
+    94 00:0035: A9 02                        lda     #1<<1
+    95 00:0037: 2C 48 DF     TxWait:         bit     UIFR                    ; Has the timer finished?
+    96 00:003A: F0 FB                        beq     TxWait
+    97 00:003C: 68                           pla
+    98 00:003D: 8D 71 DF                     sta     ARTD0                   ; Transmit the character
+    99 00:0040: 28                           plp                             ; Restore register sizes
+   100 00:0041: 68                           pla                             ; And callers A
+   101 00:0042: 60                           rts                             ; Done
+   102                        
+   103                        ; Fetch the next character from the receive buffer waiting for some to arrive
+   104                        ; if the buffer is empty.
+   105                        
+   106                                        public  UartRx
+   107                        UartRx:
+   108 00:0043: 08                           php                             ; Save register sizes
+   109                                        short_a                         ; Make A 8-bits
++  109 00:0044: E2 20                        sep     #M_FLAG
++  109                                        longa   off
+   110 00:0046: A9 01                        lda     #1<<0
+   111 00:0048: 2C 48 DF     RxWait:         bit     UIFR                    ; Any data in RX buffer?
+   112 00:004B: F0 FB                        beq     RxWait                  ; No
+   113 00:004D: AD 71 DF                     lda     ARTD0                   ; Yes, read it
+   114 00:0050: 28                           plp                             ; Restore register sizes
+   115 00:0051: 60                           rts                             ; Done
+   116                        
+   117                        ; Check if the receive buffer contains any data and return C=1 if there is
+   118                        ; some.
+   119                        
+   120                                        public  UartRxTest
+   121                        UartRxTest:
+   122 00:0052: 48                           pha                             ; Save callers A
+   123 00:0053: 08                           php
+   124                                        short_a
++  124 00:0054: E2 20                        sep     #M_FLAG
++  124                                        longa   off
+   125 00:0056: AD 48 DF                     lda     UIFR                    ; Read the status register
+   126 00:0059: 28                           plp
+   127 00:005A: 6A                           ror     a                       ; Shift UART0R bit into carry
+   128 00:005B: 68                           pla                             ; Restore A
+   129 00:005C: 60                           rts                             ; Done
+   130                        
+   131                        ;===============================================================================
+   132                        ; ROM Bank Selection
+   133                        ;-------------------------------------------------------------------------------
+  Sat Jan 23 2016 11:58                                                                                                    Page 8
+
+
+   134                        
+   135                        ; Select the flash ROM bank indicated by the two low order bits of A. The pins
+   136                        ; should be set to inputs when a hi bit is needed and a low output for a lo bit.
+   137                        
+   138                                        public RomSelect
+   139                        RomSelect:
+   140 00:005D: 08                           php
+   141                                        short_a
++  141 00:005E: E2 20                        sep     #M_FLAG
++  141                                        longa   off
+   142 00:0060: 29 03                        and     #$03                    ; Strip out bank number
+   143 00:0062: 0A                           asl     a                       ; And rotate into bits
+   144 00:0063: 0A                           asl     a
+   145 00:0064: 0A                           asl     a
+   146 00:0065: 48                           pha                             ; Save bit pattern
+   147 00:0066: 49 18                        eor     #$18                    ; Invert to get directions
+   148 00:0068: 4D 24 DF                     eor     PDD4                    ; Work out change
+   149 00:006B: 29 18                        and     #$18
+   150 00:006D: 4D 24 DF                     eor     PDD4                    ; And apply to direction reg
+   151 00:0070: 8D 24 DF                     sta     PDD4
+   152 00:0073: 68                           pla
+   153 00:0074: 4D 20 DF                     eor     PD4                     ; Then adjust data register
+   154 00:0077: 29 18                        and     #$18
+   155 00:0079: 4D 20 DF                     eor     PD4
+   156 00:007C: 8D 20 DF                     sta     PD4
+   157 00:007F: 28                           plp                             ; Restore register sizes
+   158 00:0080: 60                           rts                             ; Done
+   159                        
+   160                        ; Check if the select ROM bank contains WDC firmware. If it does return with
+   161                        ; the Z flag set.
+   162                        
+   163                                        public RomCheck
+   164                        RomCheck:
+   165 00:0081: C2 02                        rep     #Z_FLAG                 ; No firmware in the ROM
+   166 00:0083: 60                           rts
+   167                        
+   168                                        end
+
+
+      Lines assembled: 437
+      Errors: 0
