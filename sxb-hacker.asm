@@ -340,6 +340,32 @@ Disassemble:
                 jsr     TxSymbolic              ; And instruction
 
                 lda     [ADDR_S]                ; Fetch opcode again
+                pha
+                ldy     #1
+
+                cmp     #$18                    ; CLC?
+                bne     NotCLC
+                lda     #C_FLAG
+                bra     DoREP
+NotCLC:
+                cmp     #$38                    ; SEC?
+                bne     NotSEC
+                lda     #C_FLAG
+                bra     DoSEP
+NotSEC:
+                cmp     #$c2                    ; REP?
+                bne     NotREP
+                lda     [ADDR_S],Y
+DoREP:          trb     FLAGS
+                bra     NextOpcode
+NotREP:
+                cmp     #$e2                    ; SEP?
+                bne     NextOpcode
+                lda     [ADDR_S],Y
+DoSEP:          tsb     FLAGS
+
+NextOpcode:
+                pla
                 jsr     OpcodeSize
 
                 clc
@@ -690,8 +716,13 @@ S19Load:
 
                 lda     ADDR_S+2                ; Writing to ROM?
                 bne     WriteS19                ; No
-                bit     ADDR_S+1
+                lda     ADDR_S+1
                 bpl     WriteS19                ; No
+
+                ifdef   W65C265SXB
+                cmp     #$df                    ; Register page?
+                beq     NoWrite
+                endif
 
                 lda     #$aa                    ; Yes, unlock flash
                 sta     $8000+$5555
@@ -703,6 +734,7 @@ WriteS19:
                 lda     TEMP                    ; Write the value
                 sta     [ADDR_S]
 
+NoWrite:
                 inc     ADDR_S+0                ; Bump address by one
                 bne     $+4
                 inc     ADDR_S+1
@@ -860,8 +892,13 @@ TransferBlock:
 
                 lda     ADDR_S+2                ; Writing to ROM?
                 bne     WriteByte               ; No
-                bit     ADDR_S+1
+                lda     ADDR_S+1
                 bpl     WriteByte               ; No
+
+                ifdef   W65C265SXB
+                cmp     #$df                    ; Register page?
+                beq     WriteSkip
+                endif
 
                 lda     #$aa                    ; Yes, unlock flash
                 sta     $8000+$5555
@@ -877,6 +914,10 @@ WriteByte:
 WriteWait:
                 cmp     [ADDR_S],Y              ; Wait for write
                 bne     WriteWait
+                bra     $+3
+
+WriteSkip:
+                pla
 
                 clc                             ; Add to check sum
                 adc     SUM
