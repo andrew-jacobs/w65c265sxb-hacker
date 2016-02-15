@@ -1,4 +1,4 @@
-  Fri Jan 29 2016 23:00                                                                                                    Page 1
+  Mon Feb 15 2016 11:09                                                                                                    Page 1
 
 
                                                ***************************************
@@ -59,7 +59,7 @@
     17                        ; http://creativecommons.org/licenses/by-nc-sa/4.0/
     18                        ;
     19                        ;===============================================================================
-  Fri Jan 29 2016 23:00                                                                                                    Page 2
+  Mon Feb 15 2016 11:09                                                                                                    Page 2
 
 
     20                        ; Notes:
@@ -120,7 +120,7 @@
     75             0000DF56   T3LL            equ     $00DF56         ; Timer 3 Latch Low
     76             0000DF57   T3LH            equ     $00DF57         ; Timer 3 Latch High
     77             0000DF58   T4LL            equ     $00DF58         ; Timer 4 Latch Low
-  Fri Jan 29 2016 23:00                                                                                                    Page 3
+  Mon Feb 15 2016 11:09                                                                                                    Page 3
 
 
     78             0000DF59   T4LH            equ     $00DF59         ; Timer 4 Latch High
@@ -181,7 +181,7 @@
     10                        ; Copyright (C)2015 HandCoded Software Ltd.
     11                        ; All rights reserved.
     12                        ;
-  Fri Jan 29 2016 23:00                                                                                                    Page 4
+  Mon Feb 15 2016 11:09                                                                                                    Page 4
 
 
     13                        ; This work is made available under the terms of the Creative Commons
@@ -242,7 +242,7 @@
     68                        long_a          macro
     69                                        rep     #M_FLAG
     70                                        longa   on
-  Fri Jan 29 2016 23:00                                                                                                    Page 5
+  Mon Feb 15 2016 11:09                                                                                                    Page 5
 
 
     71                                        endm
@@ -303,7 +303,7 @@
     49             00000001   SOH             equ     $01
     50             00000004   EOT             equ     $04
     51             00000006   ACK             equ     $06
-  Fri Jan 29 2016 23:00                                                                                                    Page 6
+  Mon Feb 15 2016 11:09                                                                                                    Page 6
 
 
     52             00000007   BEL             equ     $07
@@ -364,7 +364,7 @@
    107             00000056   OP_PEI          equ     43<<1
    108             00000058   OP_PER          equ     44<<1
    109             0000005A   OP_PHA          equ     45<<1
-  Fri Jan 29 2016 23:00                                                                                                    Page 7
+  Mon Feb 15 2016 11:09                                                                                                    Page 7
 
 
    110             0000005C   OP_PHB          equ     46<<1
@@ -425,7 +425,7 @@
    165             00000010   MD_DPG          equ     8<<1                    ; d
    166             00000012   MD_STK          equ     9<<1                    ; d,s
    167             00000014   MD_DPX          equ     10<<1                   ; d,x
-  Fri Jan 29 2016 23:00                                                                                                    Page 8
+  Mon Feb 15 2016 11:09                                                                                                    Page 8
 
 
    168             00000016   MD_DPY          equ     11<<1                   ; d,x
@@ -486,7 +486,7 @@
    221                                        long_i
 +  221 00:0002: C2 10                        rep     #X_FLAG
 +  221                                        longi   on
-  Fri Jan 29 2016 23:00                                                                                                    Page 9
+  Mon Feb 15 2016 11:09                                                                                                    Page 9
 
 
    222 00:0004: 20 xx xx                     jsr     TxCRLF
@@ -547,7 +547,7 @@
    275                        BackSpace:
    276 00:0053: E0 00                        cpx     #0                      ; Buffer empty?
    277 00:0055: F0 D3                        beq     RingBell                ; Yes, beep and continue
-  Fri Jan 29 2016 23:00                                                                                                    Page 10
+  Mon Feb 15 2016 11:09                                                                                                    Page 10
 
 
    278 00:0057: CA                           dex                             ; No, remove last character
@@ -608,7 +608,7 @@
    333 00:00AA: A5 24                        lda     ADDR_S+1
    334 00:00AC: 20 xx xx                     jsr     TxHex2
    335 00:00AF: A5 23                        lda     ADDR_S+0
-  Fri Jan 29 2016 23:00                                                                                                    Page 11
+  Mon Feb 15 2016 11:09                                                                                                    Page 11
 
 
    336 00:00B1: 20 xx xx                     jsr     TxHex2
@@ -669,7 +669,7 @@
    391 00:00FF: D0 52                        bne     NotEraseBank
    392                        
    393 00:0101: 20 xx xx                     jsr     CheckSafe
-  Fri Jan 29 2016 23:00                                                                                                    Page 12
+  Mon Feb 15 2016 11:09                                                                                                    Page 12
 
 
    394                        
@@ -730,7 +730,7 @@
    447                        ; F - WDC Mask ROM Enable/Disable
    448                        ;-------------------------------------------------------------------------------
    449                        
-  Fri Jan 29 2016 23:00                                                                                                    Page 13
+  Mon Feb 15 2016 11:09                                                                                                    Page 13
 
 
    450                                        ifdef   W65C265SXB
@@ -791,7 +791,7 @@
    505 00:0197: 48                           pha
    506 00:0198: 49 FF                        eor     #$ff
    507 00:019A: 87 23                        sta     [ADDR_S]
-  Fri Jan 29 2016 23:00                                                                                                    Page 14
+  Mon Feb 15 2016 11:09                                                                                                    Page 14
 
 
    508 00:019C: C7 23                        cmp     [ADDR_S]
@@ -852,7 +852,7 @@
    563 00:01F6: E9 00                        sbc     #0
    564 00:01F8: 20 xx xx                     jsr     TxHex2
    565 00:01FB: A9 3A                        lda     #':'
-  Fri Jan 29 2016 23:00                                                                                                    Page 15
+  Mon Feb 15 2016 11:09                                                                                                    Page 15
 
 
    566 00:01FD: 20 xx xx                     jsr     UartTx
@@ -913,7 +913,7 @@
    621                        
    622 00:025F: 20 xx xx                     jsr     TxSpace
    623 00:0262: A9 7C                        lda     #'|'
-  Fri Jan 29 2016 23:00                                                                                                    Page 16
+  Mon Feb 15 2016 11:09                                                                                                    Page 16
 
 
    624 00:0264: 20 xx xx                     jsr     UartTx
@@ -974,7 +974,7 @@
    679 00:02B3: 4C xx xx                     jmp     NotS19
    680                        
    681 00:02B6: 20 xx xx                     jsr     NextChar                ; Get record type
-  Fri Jan 29 2016 23:00                                                                                                    Page 17
+  Mon Feb 15 2016 11:09                                                                                                    Page 17
 
 
    682 00:02B9: B0 79                        bcs     S19Fail
@@ -1035,7 +1035,7 @@
    737                        NoWrite:
    738 00:0316: E6 23                        inc     ADDR_S+0                ; Bump address by one
    739 00:0318: D0 02                        bne     $+4
-  Fri Jan 29 2016 23:00                                                                                                    Page 18
+  Mon Feb 15 2016 11:09                                                                                                    Page 18
 
 
    740 00:031A: E6 24                        inc     ADDR_S+1
@@ -1096,7 +1096,7 @@
    793 00:036D: 8D AA AA                     sta     $8000+$2aaa
    794 00:0370: A9 A0                        lda     #$a0                    ; Start byte write
    795 00:0372: 8D 55 D5                     sta     $8000+$5555
-  Fri Jan 29 2016 23:00                                                                                                    Page 19
+  Mon Feb 15 2016 11:09                                                                                                    Page 19
 
 
    796                        WriteMemory:
@@ -1157,7 +1157,7 @@
    847                        TransferWait:
    848 00:03C8: 64 2C                        stz     TEMP+0                  ; Clear timeout counter
    849 00:03CA: 64 2D                        stz     TEMP+1
-  Fri Jan 29 2016 23:00                                                                                                    Page 20
+  Mon Feb 15 2016 11:09                                                                                                    Page 20
 
 
    850 00:03CC: A9 EC                        lda     #-20
@@ -1218,7 +1218,7 @@
    903 00:0424: A9 AA                        lda     #$aa                    ; Yes, unlock flash
    904 00:0426: 8D 55 D5                     sta     $8000+$5555
    905 00:0429: A9 55                        lda     #$55
-  Fri Jan 29 2016 23:00                                                                                                    Page 21
+  Mon Feb 15 2016 11:09                                                                                                    Page 21
 
 
    906 00:042B: 8D AA AA                     sta     $8000+$2aaa
@@ -1279,7 +1279,7 @@
    961                        ; ? - Help
    962                        ;-------------------------------------------------------------------------------
    963                        
-  Fri Jan 29 2016 23:00                                                                                                    Page 22
+  Mon Feb 15 2016 11:09                                                                                                    Page 22
 
 
    964 00:0476: C9 3F                        cmp     #'?'                    ; Help command?
@@ -1340,7 +1340,7 @@
   1013 00:04AB: 60                           rts                             ; None found
   1014 00:04AC: 20 xx xx                     jsr     IsHexDigit              ; Must have at least one digit
   1015 00:04AF: 90 12                        bcc     ByteFail
-  Fri Jan 29 2016 23:00                                                                                                    Page 23
+  Mon Feb 15 2016 11:09                                                                                                    Page 23
 
 
   1016 00:04B1: 20 xx xx                     jsr     AddDigit
@@ -1401,7 +1401,7 @@
   1071                        
   1072 00:0512: 1E 00 00                     asl     0,x                     ; Shift up one nybble
   1073 00:0515: 3E 01 00                     rol     1,x
-  Fri Jan 29 2016 23:00                                                                                                    Page 24
+  Mon Feb 15 2016 11:09                                                                                                    Page 24
 
 
   1074 00:0518: 1E 00 00                     asl     0,x
@@ -1462,7 +1462,7 @@
   1129 00:0554: 4A                           lsr     a                       ; Shift MS nybble down
   1130 00:0555: 4A                           lsr     a
   1131 00:0556: 4A                           lsr     a
-  Fri Jan 29 2016 23:00                                                                                                    Page 25
+  Mon Feb 15 2016 11:09                                                                                                    Page 25
 
 
   1132 00:0557: 4A                           lsr     a
@@ -1523,7 +1523,7 @@
   1187 00:058E: 90 E8                        bcc     ClearCarry
   1188 00:0590: C9 7F                        cmp     #DEL
   1189 00:0592: 90 E2                        bcc     SetCarry
-  Fri Jan 29 2016 23:00                                                                                                    Page 26
+  Mon Feb 15 2016 11:09                                                                                                    Page 26
 
 
   1190 00:0594: 80 E2                        bra     ClearCarry
@@ -1584,7 +1584,7 @@
   1245                        
   1246                        TxCR:
   1247 00:05C3: A9 0D                        lda     #CR                     ; Transmit a CR
-  Fri Jan 29 2016 23:00                                                                                                    Page 27
+  Mon Feb 15 2016 11:09                                                                                                    Page 27
 
 
   1248 00:05C5: 4C xx xx                     jmp     UartTx
@@ -1645,7 +1645,7 @@
   1303 00:0602: AA                           tax
   1304                                        long_a
 + 1304 00:0603: C2 20                        rep     #M_FLAG
-  Fri Jan 29 2016 23:00                                                                                                    Page 28
+  Mon Feb 15 2016 11:09                                                                                                    Page 28
 
 
 + 1304                                        longa   on
@@ -1706,7 +1706,7 @@
   1359 00:0652: xx xx                        dw      TxStackIndirectY        ; (d,s),y
   1360 00:0654: xx xx                        dw      TxDirectXIndirect       ; (d,x)
   1361 00:0656: xx xx                        dw      TxDirectIndirectY       ; (d),y
-  Fri Jan 29 2016 23:00                                                                                                    Page 29
+  Mon Feb 15 2016 11:09                                                                                                    Page 29
 
 
   1362 00:0658: xx xx                        dw      TxDirectIndirectLongY   ; [d],y
@@ -1767,7 +1767,7 @@
   1417 00:06A8: A9 2C        TxX:            lda     #','
   1418 00:06AA: 20 xx xx                     jsr     UartTx
   1419 00:06AD: A9 58                        lda     #'X'
-  Fri Jan 29 2016 23:00                                                                                                    Page 30
+  Mon Feb 15 2016 11:09                                                                                                    Page 30
 
 
   1420 00:06AF: 4C xx xx                     jmp     UartTx
@@ -1828,7 +1828,7 @@
   1475 00:070C: 20 xx xx                     jsr     UartTx
   1476 00:070F: 20 xx xx                     jsr     TxAbsoluteX
   1477 00:0712: A9 29                        lda     #')'
-  Fri Jan 29 2016 23:00                                                                                                    Page 31
+  Mon Feb 15 2016 11:09                                                                                                    Page 31
 
 
   1478 00:0714: 4C xx xx                     jmp     UartTx
@@ -1889,7 +1889,7 @@
   1533 00:0775: CA                           dex
   1534 00:0776: 18                           clc
   1535 00:0777: 63 01                        adc     1,s
-  Fri Jan 29 2016 23:00                                                                                                    Page 32
+  Mon Feb 15 2016 11:09                                                                                                    Page 32
 
 
   1536 00:0779: 83 01                        sta     1,s
@@ -1950,7 +1950,7 @@
   1591 00:07C6: xx xx                        dw      Size2                   ; (d,s),y
   1592 00:07C8: xx xx                        dw      Size2                   ; (d,x)
   1593 00:07CA: xx xx                        dw      Size2                   ; (d),y
-  Fri Jan 29 2016 23:00                                                                                                    Page 33
+  Mon Feb 15 2016 11:09                                                                                                    Page 33
 
 
   1594 00:07CC: xx xx                        dw      Size2                   ; [d],y
@@ -2011,7 +2011,7 @@
   1649 00:0858: 7E 00 58 00                  db      OP_RTS,OP_ADC,OP_PER,OP_ADC     ; 60
   1650 00:085C: 92 00 78 00                  db      OP_STZ,OP_ADC,OP_ROR,OP_ADC
   1651 00:0860: 68 00 78 7C                  db      OP_PLA,OP_ADC,OP_ROR,OP_RTL
-  Fri Jan 29 2016 23:00                                                                                                    Page 34
+  Mon Feb 15 2016 11:09                                                                                                    Page 34
 
 
   1652 00:0864: 3E 00 78 00                  db      OP_JMP,OP_ADC,OP_ROR,OP_ADC
@@ -2072,7 +2072,7 @@
   1707 00:0938: 24 1E 2E 12                  db      MD_IMP,MD_DIX,MD_INT,MD_STK     ; 40
   1708 00:093C: 2A 10 10 1A                  db      MD_MOV,MD_DPG,MD_DPG,MD_DLI
   1709 00:0940: 24 2C 02 24                  db      MD_IMP,MD_IMM,MD_ACC,MD_IMP
-  Fri Jan 29 2016 23:00                                                                                                    Page 35
+  Mon Feb 15 2016 11:09                                                                                                    Page 35
 
 
   1710 00:0944: 00 00 00 08                  db      MD_ABS,MD_ABS,MD_ABS,MD_ALG
@@ -2133,7 +2133,7 @@
   1761                                        MNEM    'B','C','S'
 + 1761 00:0A00: 73 08                        dw      (((('B'-'@')<<5)|('C'-'@'))<<5)|('S'-'@')
   1762                                        MNEM    'B','E','Q'
-  Fri Jan 29 2016 23:00                                                                                                    Page 36
+  Mon Feb 15 2016 11:09                                                                                                    Page 36
 
 
 + 1762 00:0A02: B1 08                        dw      (((('B'-'@')<<5)|('E'-'@'))<<5)|('Q'-'@')
@@ -2194,7 +2194,7 @@
   1790                                        MNEM    'J','S','R'
 + 1790 00:0A3A: 72 2A                        dw      (((('J'-'@')<<5)|('S'-'@'))<<5)|('R'-'@')
   1791                                        MNEM    'L','D','A'
-  Fri Jan 29 2016 23:00                                                                                                    Page 37
+  Mon Feb 15 2016 11:09                                                                                                    Page 37
 
 
 + 1791 00:0A3C: 81 30                        dw      (((('L'-'@')<<5)|('D'-'@'))<<5)|('A'-'@')
@@ -2255,7 +2255,7 @@
   1819                                        MNEM    'R','T','L'
 + 1819 00:0A74: 8C 4A                        dw      (((('R'-'@')<<5)|('T'-'@'))<<5)|('L'-'@')
   1820                                        MNEM    'R','T','S'
-  Fri Jan 29 2016 23:00                                                                                                    Page 38
+  Mon Feb 15 2016 11:09                                                                                                    Page 38
 
 
 + 1820 00:0A76: 93 4A                        dw      (((('R'-'@')<<5)|('T'-'@'))<<5)|('S'-'@')
@@ -2316,7 +2316,7 @@
   1848                                        MNEM    'X','C','E'
 + 1848 00:0AAE: 65 60                        dw      (((('X'-'@')<<5)|('C'-'@'))<<5)|('E'-'@')
   1849                        
-  Fri Jan 29 2016 23:00                                                                                                    Page 39
+  Mon Feb 15 2016 11:09                                                                                                    Page 39
 
 
   1850                        ;===============================================================================
@@ -2377,7 +2377,7 @@
        00:0B51: 20 73 74 61 
        00:0B55: 72 74 00 
   1871 00:0B58: 0D 0A 54 69  TIMEOUT         db      CR,LF,"Timeout",0
-  Fri Jan 29 2016 23:00                                                                                                    Page 40
+  Mon Feb 15 2016 11:09                                                                                                    Page 40
 
 
        00:0B5C: 6D 65 6F 75 
@@ -2438,7 +2438,7 @@
   1879                                        endif
   1880 00:0C22: 0D 0A 47 20                  db      CR,LF,"G [xxxx]       - Run from bb:xxxx or invoke reset vector"
        00:0C26: 5B 78 78 78 
-  Fri Jan 29 2016 23:00                                                                                                    Page 41
+  Mon Feb 15 2016 11:09                                                                                                    Page 41
 
 
        00:0C2A: 78 5D 20 20 
@@ -2499,7 +2499,7 @@
        00:0CFC: 78 20 74 6F 
        00:0D00: 20 79 79 
   1885 00:0D03: 0D 0A 58 20                  db      CR,LF,"X xxxx         - XMODEM receive to bb:xxxx"
-  Fri Jan 29 2016 23:00                                                                                                    Page 42
+  Mon Feb 15 2016 11:09                                                                                                    Page 42
 
 
        00:0D07: 78 78 78 78 
