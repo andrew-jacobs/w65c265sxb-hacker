@@ -37,6 +37,11 @@ bits, no parity and 1 stop bit.
 
 ## Using W65C265SXB-Hacker
 
+The hacking tool requires Windows as an operating system. You must have the 
+tools provided by WDC from
+[http://wdc65xx.com/Products/WDCTools/](http://wdc65xx.com/Products/WDCTools/)
+installed.
+
 Use the WDC debugger to download the hacking tool to the SXB board and start
 execution. The tool will respond with a message in the terminal software.
 
