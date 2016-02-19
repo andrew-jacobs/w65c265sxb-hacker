@@ -18,12 +18,21 @@ the ROM functions properly (or you will have to remove the flash ROM to erase
 it).
 
 ## UART Connections
-The W65C265 microcontroller has four built in UARTS. The built in WDC monitor
-program uses UART3 at 9600 baud with automatic line control. The hacking tool
-is configured to use UART0 at 19200 baud with no line control so you will need
-a USB Serial adapter (like one of the cheap PL2303 modules with jumper wires
-sold on eBay) to establish a connection. You must connect the TXD, RXD and
-GND lines between the SXB and the USB adapter.
+
+You will need two USB connections to the board to access two of the four
+built-in UARTs of the W65C265 microcontroller. 
+
+The built-in WDC monitor uprogram uses UART3 at 9600 baud with automatic line
+control, which is the connector to J6 at the bottom of the board. You use this
+to provide power to the boards and to upload the hacking tool via the WDC
+debugger (or other methods to upload S28 files). 
+
+Second, the hacking tool itself is configured to use UART0 via J5 - the jack on
+the bottom right of the board. Use a USB serial adapter (like one of the cheap
+PL2303 modules with jumper wires sold on eBay) to establish a connection. You
+must connect the TXD, RXD and GND lines. On J5, GND is pin 2, TXD is pin 4 (just
+above GND), and RXD is pin 3 (just above pin 1, which is marked with a dot and
+left open).
 
 > It would be possible to configure SXB-Hacker to use UART3 but then either
 > it would have to use the slower 9600 baud settings used by the Mensch monitor
@@ -32,9 +41,14 @@ GND lines between the SXB and the USB adapter.
 
 You also need a terminal program like AlphaCom or Tera Term on your PC that
 supports XMODEM file transfers. Configure it to work at 19200 baud, 8 data
-bits, no parity and 1 stop bit.
+bits, no parity and 1 stop bit (8N1). Disable hardware flow control. 
+
+> Depending on your operating system, you might have had to add a Line Feed (LF)
+> to the output of the Mensch Monitor. This is not necessary for the hacking
+> tool.
 
 ## Using W65C265SXB-Hacker
+
 Use the WDC debugger to download the compiled S28 image of the hacking tool
 (sxb-hacker.s28) to the SXB board using your terminal (the Mensch Monitor
 will load the S28 records into memory) and start execution with 'G 00:0300'.
