@@ -1,4 +1,4 @@
-  Mon Feb 15 2016 11:09                                                                                                    Page 1
+  Mon Jun 18 2018 10:11                                                                                                    Page 1
 
 
                                                ***************************************
@@ -59,7 +59,7 @@
     21                        ;
     22                        ; Various macros and definitions for the W65C265 microcontroller.
     23                        ;
-  Mon Feb 15 2016 11:09                                                                                                    Page 2
+  Mon Jun 18 2018 10:11                                                                                                    Page 2
 
 
     24                        ;===============================================================================
@@ -120,7 +120,7 @@
     79             0000DF5A   T5LL            equ     $00DF5A         ; Timer 5 Latch Low
     80             0000DF5B   T5LH            equ     $00DF5B         ; Timer 5 Latch High
     81             0000DF5C   T6LL            equ     $00DF5C         ; Timer 6 Latch Low
-  Mon Feb 15 2016 11:09                                                                                                    Page 3
+  Mon Jun 18 2018 10:11                                                                                                    Page 3
 
 
     82             0000DF5D   T6LH            equ     $00DF5D         ; Timer 6 Latch High
@@ -181,7 +181,7 @@
     14                        ; Attribution-NonCommercial-ShareAlike 4.0 International license. Open the
     15                        ; following URL to see the details.
     16                        ;
-  Mon Feb 15 2016 11:09                                                                                                    Page 4
+  Mon Jun 18 2018 10:11                                                                                                    Page 4
 
 
     17                        ; http://creativecommons.org/licenses/by-nc-sa/4.0/
@@ -242,7 +242,7 @@
     72                        
     73                        ; Resets the X bit making the index registers 16-bits wide
     74                        
-  Mon Feb 15 2016 11:09                                                                                                    Page 5
+  Mon Jun 18 2018 10:11                                                                                                    Page 5
 
 
     75                        long_i          macro
@@ -303,7 +303,7 @@
     19                        ;==============================================================================
     20                        ; Notes:
     21                        ;
-  Mon Feb 15 2016 11:09                                                                                                    Page 6
+  Mon Jun 18 2018 10:11                                                                                                    Page 6
 
 
     22                        ;------------------------------------------------------------------------------
@@ -364,7 +364,7 @@
     79 00:002D: 4C xx xx                     jmp     Start                   ; Jump to the application start
     80                        
     81                        ;==============================================================================
-  Mon Feb 15 2016 11:09                                                                                                    Page 7
+  Mon Jun 18 2018 10:11                                                                                                    Page 7
 
 
     82                        ; ACIA Interface
@@ -425,7 +425,7 @@
    131                        ;===============================================================================
    132                        ; ROM Bank Selection
    133                        ;-------------------------------------------------------------------------------
-  Mon Feb 15 2016 11:09                                                                                                    Page 8
+  Mon Jun 18 2018 10:11                                                                                                    Page 8
 
 
    134                        
