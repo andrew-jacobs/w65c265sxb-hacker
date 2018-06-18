@@ -33,13 +33,15 @@
 ; Configuration
 ;------------------------------------------------------------------------------
 
-BAUD_RATE       equ     19200                   ; ACIA baud rate
+BAUD_RATE       equ     9600                   	; ACIA baud rate
 
 BRG_VALUE       equ     OSC_FREQ/(16*BAUD_RATE)-1
 
                 if      BRG_VALUE&$ffff0000
                 messg   "BRG_VALUE does not fit in 16-bits"
                 endif
+
+UART            equ     3
 
 ;==============================================================================
 ; Power On Reset
@@ -63,7 +65,7 @@ RESET:
                 sta     PDD4
                 stz     PD4                     ; And select bank 0
 
-                lda     #%00010000              ; Set UART0 to use timer 3
+                lda     #($10<<UART)            ; Set UART to use timer 3
                 trb     TCR
                 lda     #<BRG_VALUE             ; And set baud rate
                 sta     T3CL
@@ -73,8 +75,8 @@ RESET:
                 lda     #1<<3                   ; Enable timer 3
                 tsb     TER
 
-                lda     #%00100101              ; Set UART0 for 8-N-1
-                sta     ACSR0
+                lda     #%00100101              ; Set UART for 8-N-1
+                sta     ACSR0+2*UART
 
                 jmp     Start                   ; Jump to the application start
 
@@ -91,11 +93,11 @@ UartTx:
                 php                             ; Save register sizes
                 short_a                         ; Make A 8-bits
                 pha
-                lda     #1<<1
+                lda     #(1<<1)<<(2*UART)
 TxWait:         bit     UIFR                    ; Has the timer finished?
                 beq     TxWait
                 pla
-                sta     ARTD0                   ; Transmit the character
+                sta     ARTD0+2*UART            ; Transmit the character
                 plp                             ; Restore register sizes
                 pla                             ; And callers A
                 rts                             ; Done
@@ -107,10 +109,10 @@ TxWait:         bit     UIFR                    ; Has the timer finished?
 UartRx:
                 php                             ; Save register sizes
                 short_a                         ; Make A 8-bits
-                lda     #1<<0
+                lda     #(1<<0)<<(2*UART)
 RxWait:         bit     UIFR                    ; Any data in RX buffer?
                 beq     RxWait                  ; No
-                lda     ARTD0                   ; Yes, read it
+                lda     ARTD0+2*UART            ; Yes, read it
                 plp                             ; Restore register sizes
                 rts                             ; Done
 
@@ -123,7 +125,10 @@ UartRxTest:
                 php
                 short_a
                 lda     UIFR                    ; Read the status register
-                plp
+                and     #(1<<0)<<(2*UART)
+                beq     RxDone
+                inc     a
+RxDone:         plp
                 ror     a                       ; Shift UART0R bit into carry
                 pla                             ; Restore A
                 rts                             ; Done
