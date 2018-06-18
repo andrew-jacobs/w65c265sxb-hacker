@@ -7,7 +7,7 @@
 ;
 ; A program for Hacking your W65C265SXB or W65C816SXB
 ;-------------------------------------------------------------------------------
-; Copyright (C)2015 Andrew Jacobs
+; Copyright (C),2015-2018 Andrew Jacobs
 ; All rights reserved.
 ;
 ; This work is made available under the terms of the Creative Commons
@@ -1363,7 +1363,7 @@ MODE_SHOW:
                 dw      TxImplied               ;
                 dw      TxRelative              ; r
                 dw      TxRelativeLong          ; rl
-                dw      TxImplied               ; xyc
+                dw      TxMove                  ; xyc
                 dw      TxImmediateM            ; # (A & M)
                 dw      TxImmediateByte         ; # (BRK/COP/WDM)
                 dw      TxImmediateX            ; # (X or Y)
@@ -1387,6 +1387,20 @@ TxImmediateX:
 
 TxImplied:
                 rts
+
+TxMove:
+                lda     #'$'
+                jsr     UartTx
+                ldy     #1
+                lda     [ADDR_S],Y
+                jsr     TxHex2
+                lda     #','
+                jsr     UartTx
+                lda     #'$'
+                jsr     UartTx
+                iny
+                lda     [ADDR_S],Y
+                jmp     TxHex2
 
 TxImmediateByte:
                 lda     #'#'
@@ -1666,7 +1680,7 @@ OPCODES:
                 db      OP_LDY,OP_LDA,OP_LDX,OP_LDA
                 db      OP_TAY,OP_LDA,OP_TAX,OP_PLB
                 db      OP_LDY,OP_LDA,OP_LDX,OP_LDA
-                db      OP_BCS,OP_LDA,OP_LDA,OP_LDY     ; B0
+                db      OP_BCS,OP_LDA,OP_LDA,OP_LDA     ; B0
                 db      OP_LDA,OP_LDY,OP_LDX,OP_LDA
                 db      OP_CLV,OP_LDA,OP_TSX,OP_TYX
                 db      OP_LDY,OP_LDA,OP_LDX,OP_LDA
@@ -1858,7 +1872,7 @@ TITLE           db      CR,LF
                 ifdef   W65C265SXB
                 db      "W65C265SXB"
                 endif
-                db      "-Hacker [16.01]",0
+                db      "-Hacker [18.06]",0
 
 ERROR           db      CR,LF,"Error - Type ? for help",0
 

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
   Mon Jun 18 2018 20:48                                                                                                    Page 1
+=======
+  Mon Jun 18 2018 10:11                                                                                                    Page 1
+>>>>>>> 8e0f3b555a3a3cc025f712efb49bd153590b6804
 
 
                                                ***************************************
@@ -59,7 +63,11 @@
     21                        ;
     22                        ; Various macros and definitions for the W65C265 microcontroller.
     23                        ;
+<<<<<<< HEAD
   Mon Jun 18 2018 20:48                                                                                                    Page 2
+=======
+  Mon Jun 18 2018 10:11                                                                                                    Page 2
+>>>>>>> 8e0f3b555a3a3cc025f712efb49bd153590b6804
 
 
     24                        ;===============================================================================
@@ -120,7 +128,11 @@
     79             0000DF5A   T5LL            equ     $00DF5A         ; Timer 5 Latch Low
     80             0000DF5B   T5LH            equ     $00DF5B         ; Timer 5 Latch High
     81             0000DF5C   T6LL            equ     $00DF5C         ; Timer 6 Latch Low
+<<<<<<< HEAD
   Mon Jun 18 2018 20:48                                                                                                    Page 3
+=======
+  Mon Jun 18 2018 10:11                                                                                                    Page 3
+>>>>>>> 8e0f3b555a3a3cc025f712efb49bd153590b6804
 
 
     82             0000DF5D   T6LH            equ     $00DF5D         ; Timer 6 Latch High
@@ -181,7 +193,11 @@
     14                        ; Attribution-NonCommercial-ShareAlike 4.0 International license. Open the
     15                        ; following URL to see the details.
     16                        ;
+<<<<<<< HEAD
   Mon Jun 18 2018 20:48                                                                                                    Page 4
+=======
+  Mon Jun 18 2018 10:11                                                                                                    Page 4
+>>>>>>> 8e0f3b555a3a3cc025f712efb49bd153590b6804
 
 
     17                        ; http://creativecommons.org/licenses/by-nc-sa/4.0/
@@ -242,7 +258,11 @@
     72                        
     73                        ; Resets the X bit making the index registers 16-bits wide
     74                        
+<<<<<<< HEAD
   Mon Jun 18 2018 20:48                                                                                                    Page 5
+=======
+  Mon Jun 18 2018 10:11                                                                                                    Page 5
+>>>>>>> 8e0f3b555a3a3cc025f712efb49bd153590b6804
 
 
     75                        long_i          macro
@@ -303,7 +323,11 @@
     19                        ;==============================================================================
     20                        ; Notes:
     21                        ;
+<<<<<<< HEAD
   Mon Jun 18 2018 20:48                                                                                                    Page 6
+=======
+  Mon Jun 18 2018 10:11                                                                                                    Page 6
+>>>>>>> 8e0f3b555a3a3cc025f712efb49bd153590b6804
 
 
     22                        ;------------------------------------------------------------------------------
@@ -363,6 +387,7 @@
     78 00:0028: A9 25                        lda     #%00100101              ; Set UART for 8-N-1
     79 00:002A: 8D 76 DF                     sta     ACSR0+2*UART
     80                        
+<<<<<<< HEAD
     81 00:002D: 4C xx xx                     jmp     Start                   ; Jump to the application start
   Mon Jun 18 2018 20:48                                                                                                    Page 7
 
@@ -426,6 +451,71 @@
    132 00:005F: 6A                           ror     a                       ; Shift UART0R bit into carry
    133 00:0060: 68                           pla                             ; Restore A
   Mon Jun 18 2018 20:48                                                                                                    Page 8
+=======
+    81                        ;==============================================================================
+  Mon Jun 18 2018 10:11                                                                                                    Page 7
+
+
+    82                        ; ACIA Interface
+    83                        ;------------------------------------------------------------------------------
+    84                        
+    85                        ; Wait until the last transmission has been completed then send the character
+    86                        ; in A.
+    87                        
+    88                                        public  UartTx
+    89                        UartTx:
+    90 00:0030: 48                           pha                             ; Save the character
+    91 00:0031: 08                           php                             ; Save register sizes
+    92                                        short_a                         ; Make A 8-bits
++   92 00:0032: E2 20                        sep     #M_FLAG
++   92                                        longa   off
+    93 00:0034: 48                           pha
+    94 00:0035: A9 02                        lda     #1<<1
+    95 00:0037: 2C 48 DF     TxWait:         bit     UIFR                    ; Has the timer finished?
+    96 00:003A: F0 FB                        beq     TxWait
+    97 00:003C: 68                           pla
+    98 00:003D: 8D 71 DF                     sta     ARTD0                   ; Transmit the character
+    99 00:0040: 28                           plp                             ; Restore register sizes
+   100 00:0041: 68                           pla                             ; And callers A
+   101 00:0042: 60                           rts                             ; Done
+   102                        
+   103                        ; Fetch the next character from the receive buffer waiting for some to arrive
+   104                        ; if the buffer is empty.
+   105                        
+   106                                        public  UartRx
+   107                        UartRx:
+   108 00:0043: 08                           php                             ; Save register sizes
+   109                                        short_a                         ; Make A 8-bits
++  109 00:0044: E2 20                        sep     #M_FLAG
++  109                                        longa   off
+   110 00:0046: A9 01                        lda     #1<<0
+   111 00:0048: 2C 48 DF     RxWait:         bit     UIFR                    ; Any data in RX buffer?
+   112 00:004B: F0 FB                        beq     RxWait                  ; No
+   113 00:004D: AD 71 DF                     lda     ARTD0                   ; Yes, read it
+   114 00:0050: 28                           plp                             ; Restore register sizes
+   115 00:0051: 60                           rts                             ; Done
+   116                        
+   117                        ; Check if the receive buffer contains any data and return C=1 if there is
+   118                        ; some.
+   119                        
+   120                                        public  UartRxTest
+   121                        UartRxTest:
+   122 00:0052: 48                           pha                             ; Save callers A
+   123 00:0053: 08                           php
+   124                                        short_a
++  124 00:0054: E2 20                        sep     #M_FLAG
++  124                                        longa   off
+   125 00:0056: AD 48 DF                     lda     UIFR                    ; Read the status register
+   126 00:0059: 28                           plp
+   127 00:005A: 6A                           ror     a                       ; Shift UART0R bit into carry
+   128 00:005B: 68                           pla                             ; Restore A
+   129 00:005C: 60                           rts                             ; Done
+   130                        
+   131                        ;===============================================================================
+   132                        ; ROM Bank Selection
+   133                        ;-------------------------------------------------------------------------------
+  Mon Jun 18 2018 10:11                                                                                                    Page 8
+>>>>>>> 8e0f3b555a3a3cc025f712efb49bd153590b6804
 
 
    134 00:0061: 60                           rts                             ; Done
